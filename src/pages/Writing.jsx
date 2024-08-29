@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import WriteFormContainer from '../components/WriteFormContainer';
 import WriteSidebar from '../components/WriteSidebar';
+import '../assets/Writing.css';
 
 const Writing = () => {
   return (
