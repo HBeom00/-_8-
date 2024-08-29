@@ -1,10 +1,13 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const WriteHearder = () => {
+  const navigate = useNavigate();
+
   return (
     <SyHeader>
       <h2>Detail page</h2>
-      <h3>back</h3>
+      <h3 onClick={() => navigate(-1)}>back</h3>
     </SyHeader>
   );
 };

@@ -24,9 +24,9 @@ const WriteFormContainer = () => {
           <label htmlFor="region">지역</label>
           <select id="region">
             <option value="">선택하세요</option>
-            <option value="지역1">지역1</option>
-            <option value="지역2">지역2</option>
-            <option value="지역3">지역3</option>
+            <option value="서울">서울</option>
+            <option value="경기">경기</option>
+            <option value="부산">부산</option>
             <option value="지역4">지역4</option>
             <option value="지역5">지역5</option>
           </select>

@@ -1,23 +1,26 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const WriteSidebar = () => {
+  const navigate = useNavigate();
+
   return (
     <SySidebar>
       <h1>맛있는 발견</h1>
       <SyLogoutContainer>
         <h3>Logout</h3>
         <h3>/</h3>
-        <h3>My page</h3>
+        <h3 onClick={() => navigate('/mypage')}>My page</h3>
       </SyLogoutContainer>
 
       <div>
         <input />
         <button>click</button>
       </div>
-      <SyTextContainer>
-        <h2>Home</h2>
+      <div>
+        <h2 onClick={() => navigate('/')}>Home</h2>
         <h2>내 게시글</h2>
-      </SyTextContainer>
+      </div>
     </SySidebar>
   );
 };
@@ -36,11 +39,4 @@ const SySidebar = styled.div`
 const SyLogoutContainer = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const SyTextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 30px;
 `;
