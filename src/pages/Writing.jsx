@@ -22,11 +22,9 @@ const SyPage = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 100%;
 `;
 
 const SyContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 600px;
 `;

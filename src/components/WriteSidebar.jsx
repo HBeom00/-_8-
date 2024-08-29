@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const WriteSidebar = () => {
@@ -26,8 +25,6 @@ const WriteSidebar = () => {
 export default WriteSidebar;
 
 const SySidebar = styled.div`
-  /* width: 35%; */
-  height: 100vh;
   border: 2px solid black;
   display: flex;
   flex-direction: column;
