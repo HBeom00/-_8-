@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import WriteList from './WriteList';
 import { useEffect, useState } from 'react';
+import mockRestaurants from '../mockRestaurants';
 
 const WriteFormContainer = () => {
   const [posts, setPosts] = useState([]);
@@ -13,11 +14,12 @@ const WriteFormContainer = () => {
     review: ''
   });
 
-  // const fetchPosts = () => {
-  //   Supabase에서 데이터를 가져오는 로직 구현
-  //   지금은 임시로 로컬 상태 반환
-  //   return posts;
-  // };
+  const fetchPosts = () => {
+    // Supabase에서 데이터를 가져오는 로직 구현
+    // 지금은 임시로 로컬 상태 반환
+
+    return mockRestaurants;
+  };
 
   const createPost = (newPost) => {
     // Supabase에 데이터를 생성하는 로직
@@ -26,10 +28,10 @@ const WriteFormContainer = () => {
   };
 
   // 처음 렌더링 시 한번만 실행
-  // useEffect(() => {
-  //   const initialPosts = fetchPosts();
-  //   setPosts(initialPosts);
-  // }, []);
+  useEffect(() => {
+    const initialPosts = fetchPosts();
+    setPosts(initialPosts);
+  }, []);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
