@@ -1,29 +1,72 @@
 import styled from 'styled-components';
 import WriteList from './WriteList';
+import { useState } from 'react';
 
 const WriteFormContainer = () => {
+  const [posts, setPosts] = useState([]);
+  const [formData, setFormData] = useState({
+    storeName: '',
+    image: null,
+    address: '',
+    region: '',
+    rating: '',
+    review: ''
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
+    // console.log(formData);
+  };
+
+  const handleFileChange = (e) => {
+    setFormData((prevData) => ({ ...prevData, image: e.target.files[0] }));
+    // console.log(formData);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newPost = {
+      id: Date.now(),
+      ...formData
+    };
+
+    setPosts((prevPost) => [...prevPost, newPost]);
+
+    setFormData({
+      storeName: '',
+      image: null,
+      address: '',
+      region: '',
+      rating: '',
+      review: ''
+    });
+
+    console.log(posts);
+  };
+
   return (
     <SyFormContainer>
       <h2>맛집 게시글 작성</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="storeName">가게 상호명</label>
-          <input id="storeName" type="text" />
+          <input id="storeName" type="text" value={formData.storeName} onChange={handleChange} />
         </div>
 
         <div>
           <label htmlFor="image">이미지 업로드</label>
-          <input id="image" type="file" accept="image/*" multiple />
+          <input id="image" type="file" accept="image/*" onChange={handleFileChange} />
         </div>
 
         <div>
           <label htmlFor="address">주소</label>
-          <input id="address" type="text" />
+          <input id="address" type="text" value={formData.address} onChange={handleChange} />
         </div>
 
         <div>
           <label htmlFor="region">지역</label>
-          <select id="region">
+          <select id="region" value={formData.region} onChange={handleChange}>
             <option value="">선택하세요</option>
             <option value="서울">서울</option>
             <option value="경기">경기</option>
@@ -35,7 +78,7 @@ const WriteFormContainer = () => {
 
         <div>
           <label htmlFor="rating">별점</label>
-          <select id="rating">
+          <select id="rating" value={formData.rating} onChange={handleChange}>
             <option value="">선택하세요</option>
             <option value="1">1점</option>
             <option value="2">2점</option>
@@ -46,7 +89,7 @@ const WriteFormContainer = () => {
         </div>
         <div>
           <label htmlFor="review">후기</label>
-          <textarea id="review" rows="5"></textarea>
+          <textarea id="review" rows="5" value={formData.review} onChange={handleChange}></textarea>
         </div>
         <div>
           <button type="submit">게시글 등록</button>
@@ -54,7 +97,9 @@ const WriteFormContainer = () => {
       </form>
 
       <div>
-        <WriteList />
+        {posts.map((post) => (
+          <WriteList key={post.id} post={post} />
+        ))}
       </div>
     </SyFormContainer>
   );
