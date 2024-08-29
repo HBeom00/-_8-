@@ -3,16 +3,16 @@ import styled from 'styled-components';
 
 const WriteHearder = () => {
   return (
-    <Header>
+    <SyHeader>
       <h2>Detail page</h2>
       <h3>back</h3>
-    </Header>
+    </SyHeader>
   );
 };
 
 export default WriteHearder;
 
-const Header = styled.div`
+const SyHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

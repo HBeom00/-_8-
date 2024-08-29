@@ -3,29 +3,29 @@ import styled from 'styled-components';
 
 const WriteSidebar = () => {
   return (
-    <Sidebar>
+    <SySidebar>
       <h1>맛있는 발견</h1>
-      <LogoutContainer>
+      <SyLogoutContainer>
         <h3>Logout</h3>
         <h3>/</h3>
         <h3>My page</h3>
-      </LogoutContainer>
+      </SyLogoutContainer>
 
       <div>
         <input />
         <button>click</button>
       </div>
-      <TextContainer>
+      <SyTextContainer>
         <h2>Home</h2>
         <h2>내 게시글</h2>
-      </TextContainer>
-    </Sidebar>
+      </SyTextContainer>
+    </SySidebar>
   );
 };
 
 export default WriteSidebar;
 
-const Sidebar = styled.div`
+const SySidebar = styled.div`
   /* width: 35%; */
   height: 100vh;
   border: 2px solid black;
@@ -36,12 +36,12 @@ const Sidebar = styled.div`
   padding: 10px;
 `;
 
-const LogoutContainer = styled.div`
+const SyLogoutContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
-const TextContainer = styled.div`
+const SyTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
