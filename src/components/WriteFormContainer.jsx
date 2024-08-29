@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import WriteList from './WriteList';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const WriteFormContainer = () => {
   const [posts, setPosts] = useState([]);
@@ -12,6 +12,24 @@ const WriteFormContainer = () => {
     rating: '',
     review: ''
   });
+
+  // const fetchPosts = () => {
+  //   Supabase에서 데이터를 가져오는 로직 구현
+  //   지금은 임시로 로컬 상태 반환
+  //   return posts;
+  // };
+
+  const createPost = (newPost) => {
+    // Supabase에 데이터를 생성하는 로직
+    // 지금은 임시로 로컬 상태 업데이트
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+  };
+
+  // 처음 렌더링 시 한번만 실행
+  // useEffect(() => {
+  //   const initialPosts = fetchPosts();
+  //   setPosts(initialPosts);
+  // }, []);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -31,7 +49,11 @@ const WriteFormContainer = () => {
       ...formData
     };
 
-    setPosts((prevPost) => [...prevPost, newPost]);
+    createPost(newPost);
+
+    // 데이터 생성 후 최신 데이터 다시 조회
+    // const updatedPosts = fetchPosts();
+    // setPosts(updatedPosts);
 
     setFormData({
       storeName: '',
@@ -42,7 +64,7 @@ const WriteFormContainer = () => {
       review: ''
     });
 
-    console.log(posts);
+    // console.log(posts);
   };
 
   return (
