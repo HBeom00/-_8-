@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import WriteList from './WriteList';
 
 const WriteFormContainer = () => {
   return (
@@ -51,6 +52,10 @@ const WriteFormContainer = () => {
           <button type="submit">게시글 등록</button>
         </div>
       </form>
+
+      <div>
+        <WriteList />
+      </div>
     </SyFormContainer>
   );
 };
