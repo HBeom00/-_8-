@@ -63,7 +63,8 @@ const SyPost = styled.div`
 `;
 
 const SyButton = styled.div`
-  padding: 10px;
+  padding: 12px;
+  font-weight: 900;
   cursor: pointer;
   &.info {
     width: 30%;
@@ -84,5 +85,8 @@ const SyButton = styled.div`
     top: 4%;
     right: 4%;
     font-size: 20px;
+  }
+  &:hover {
+    text-decoration: underline;
   }
 `;
