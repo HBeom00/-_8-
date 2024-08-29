@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import WriteList from './WriteList';
-import { useEffect, useState } from 'react';
-import mockRestaurants from '../mockRestaurants';
+// import WriteList from './WriteList';
+import { useState } from 'react';
+// import mockRestaurants from '../mockRestaurants';
+import supabase from '../supabaseClient';
 
 const WriteFormContainer = () => {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
   const [formData, setFormData] = useState({
     storeName: '',
     image: null,
@@ -14,59 +15,48 @@ const WriteFormContainer = () => {
     review: ''
   });
 
-  const fetchPosts = () => {
-    // Supabase에서 데이터를 가져오는 로직 구현
-    // 지금은 임시로 로컬 상태 반환
-
-    return mockRestaurants;
-  };
-
-  const createPost = (newPost) => {
-    // Supabase에 데이터를 생성하는 로직
-    // 지금은 임시로 로컬 상태 업데이트
-    setPosts((prevPosts) => [...prevPosts, newPost]);
-  };
-
-  // 처음 렌더링 시 한번만 실행
-  useEffect(() => {
-    const initialPosts = fetchPosts();
-    setPosts(initialPosts);
-  }, []);
-
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [id]: value }));
-    // console.log(formData);
   };
 
   const handleFileChange = (e) => {
     setFormData((prevData) => ({ ...prevData, image: e.target.files[0] }));
-    // console.log(formData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newPost = {
-      id: Date.now(),
-      ...formData
-    };
 
-    createPost(newPost);
+    try {
+      const res = await supabase.from('store').insert({
+        writer: 'coolcat1',
+        store_name: formData.storeName,
+        // image: formData.image,
+        address: formData.address,
+        location: formData.region,
+        star: formData.rating,
+        comment: formData.review
+      });
 
-    // 데이터 생성 후 최신 데이터 다시 조회
-    // const updatedPosts = fetchPosts();
-    // setPosts(updatedPosts);
+      console.log('응답값', res);
 
-    setFormData({
-      storeName: '',
-      image: null,
-      address: '',
-      region: '',
-      rating: '',
-      review: ''
-    });
+      if (res.error) throw res.error;
+      console.log('게시물이 성공적으로 생성되었습니다', res.data);
 
-    // console.log(posts);
+      setFormData({
+        storeName: '',
+        image: null,
+        address: '',
+        region: '',
+        rating: '',
+        review: ''
+      });
+
+      alert('게시물이 성공적으로 작성되었습니다!');
+    } catch (error) {
+      console.error('게시물 작성 중 오류 발생', error.message);
+      alert('게시물 작성 중 오류 발생 다시 시도 바란다.');
+    }
   };
 
   return (
@@ -92,9 +82,9 @@ const WriteFormContainer = () => {
           <label htmlFor="region">지역</label>
           <select id="region" value={formData.region} onChange={handleChange}>
             <option value="">선택하세요</option>
-            <option value="서울">서울</option>
-            <option value="경기">경기</option>
-            <option value="부산">부산</option>
+            <option value="지역1">지역1</option>
+            <option value="지역2">지역2</option>
+            <option value="지역3">지역3</option>
             <option value="지역4">지역4</option>
             <option value="지역5">지역5</option>
           </select>
@@ -120,11 +110,11 @@ const WriteFormContainer = () => {
         </div>
       </form>
 
-      <div>
+      {/* <div>
         {posts.map((post) => (
           <WriteList key={post.id} post={post} />
         ))}
-      </div>
+      </div> */}
     </SyFormContainer>
   );
 };
