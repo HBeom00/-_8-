@@ -6,19 +6,25 @@ import WriteHearder from '../components/WriteHearder';
 
 const Writing = () => {
   return (
-    <WritingPage>
+    <WritingPageContainer>
       <WriteSidebar />
-      <div>
+      <SecondContainer>
         <WriteHearder />
         <WriteFormContainer />
-      </div>
-    </WritingPage>
+      </SecondContainer>
+    </WritingPageContainer>
   );
 };
 
 export default Writing;
 
-const WritingPage = styled.div`
+const WritingPageContainer = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+`;
+
+const SecondContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

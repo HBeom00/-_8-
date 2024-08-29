@@ -26,7 +26,7 @@ const WriteSidebar = () => {
 export default WriteSidebar;
 
 const Sidebar = styled.div`
-  width: 35%;
+  /* width: 35%; */
   height: 100vh;
   border: 2px solid black;
   display: flex;
