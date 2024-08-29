@@ -1,8 +1,14 @@
 import Router from './router/Router';
 import './reset.css';
+import GlobalStyles from './GlobalStyles';
 
 const App = () => {
-  return <Router />;
+  return (
+    <>
+      <GlobalStyles />
+      <Router />
+    </>
+  );
 };
 
 export default App;
