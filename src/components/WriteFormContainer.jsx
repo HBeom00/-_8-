@@ -36,6 +36,18 @@ const WriteFormContainer = () => {
     }
 
     try {
+      let imagePath = null;
+
+      // 이미지 업로드
+      if (formData.image) {
+        const fileName = `store_img_${Date.now()}.png`;
+        const { data, error } = await supabase.storage.from('store_img').upload(`public/${fileName}`, formData.image);
+
+        if (error) throw error;
+
+        imagePath = `public/${fileName}`;
+      }
+
       const { data, error } = await supabase.from('store').insert({
         writer: 'coolcat1',
         store_name: formData.storeName,
