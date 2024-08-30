@@ -1,12 +1,15 @@
 import Router from './router/Router';
 import './reset.css';
 import GlobalStyles from './GlobalStyles';
+import PostProvider from './context/store';
 
 const App = () => {
   return (
     <>
       <GlobalStyles />
-      <Router />
+      <PostProvider>
+        <Router />
+      </PostProvider>
     </>
   );
 };

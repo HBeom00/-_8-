@@ -14,5 +14,4 @@ body{
     align-items: center;
 }
 `;
-
 export default GlobalStyles;

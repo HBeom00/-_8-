@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import supabase from '../supabaseClient';
+import { useNavigate } from 'react-router-dom';
+import { PostContext } from '../context/store';
 
 const MyPost = () => {
-  const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
+  const { posts, setPosts } = useContext(PostContext);
 
   useEffect(() => {
     getPosts();
   }, []);
 
-  // DB data 받아오기
+  // DB data 가져오기
   async function getPosts() {
     const { data } = await supabase.from('store').select();
     setPosts([...data]);
   }
 
-  // DB data 삭제하기
+  // DB data 삭제
   async function ondeletePost(id) {
     const { data } = await supabase.from('store').delete().eq('id', id).select();
 
@@ -38,7 +41,7 @@ const MyPost = () => {
               <div>{el.comment}</div>
             </div>
             <div>
-              <button>수정</button>
+              <button onClick={() => navigate(`/writing?id=${el.id}`)}>수정</button>
               <button onClick={() => ondeletePost(el.id)}>삭제</button>
             </div>
           </SyPostCard>
