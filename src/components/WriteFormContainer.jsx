@@ -45,13 +45,14 @@ const WriteFormContainer = () => {
 
         if (error) throw error;
 
-        imagePath = `public/${fileName}`;
+        // 업로드 된 이미지의 공개 URL 가져오기
+        imagePath = `${supabase.storage.from('storage_img').getPublicUrl(`public/${fileName}`).data.publicUrl}`;
       }
 
       const { data, error } = await supabase.from('store').insert({
         writer: 'coolcat1',
         store_name: formData.storeName,
-        // image: formData.image,
+        image: imagePath,
         address: formData.address,
         location: formData.region,
         star: formData.rating,
