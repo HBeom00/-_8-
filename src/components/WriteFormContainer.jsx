@@ -26,7 +26,7 @@ const WriteFormContainer = () => {
     e.preventDefault();
 
     try {
-      const res = await supabase.from('store').insert({
+      const { data, error } = await supabase.from('store').insert({
         writer: 'coolcat1',
         store_name: formData.storeName,
         // image: formData.image,
@@ -36,10 +36,10 @@ const WriteFormContainer = () => {
         comment: formData.review
       });
 
-      console.log('응답값', res);
+      console.log('응답값', data);
 
-      if (res.error) throw res.error;
-      console.log('게시물이 성공적으로 생성되었습니다', res.data);
+      if (error) throw error;
+      console.log('게시물이 성공적으로 생성되었습니다', data);
 
       setFormData({
         storeName: '',
