@@ -13,14 +13,14 @@ const WriteSidebar = () => {
         <h3 onClick={() => navigate('/mypage')}>My page</h3>
       </SyLogoutContainer>
 
-      <div>
+      <SySearchContainer>
         <input />
         <button>click</button>
-      </div>
-      <div>
+      </SySearchContainer>
+      <SyNavContainer>
         <h2 onClick={() => navigate('/')}>Home</h2>
         <h2>내 게시글</h2>
-      </div>
+      </SyNavContainer>
     </SySidebar>
   );
 };
@@ -39,4 +39,15 @@ const SySidebar = styled.div`
 const SyLogoutContainer = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+const SySearchContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const SyNavContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;

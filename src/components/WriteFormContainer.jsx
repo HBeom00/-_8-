@@ -1,11 +1,9 @@
 import styled from 'styled-components';
 // import WriteList from './WriteList';
 import { useState } from 'react';
-// import mockRestaurants from '../mockRestaurants';
 import supabase from '../supabaseClient';
 
 const WriteFormContainer = () => {
-  // const [posts, setPosts] = useState([]);
   const [formData, setFormData] = useState({
     storeName: '',
     image: null,

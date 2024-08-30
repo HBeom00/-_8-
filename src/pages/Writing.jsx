@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import WriteFormContainer from '../components/WriteFormContainer';
 import WriteSidebar from '../components/WriteSidebar';
-import WriteHearder from '../components/WriteHearder';
+import WriteHeader from '../components/WriteHeader';
 
 const Writing = () => {
   return (
     <SyPage>
       <WriteSidebar />
       <SyContainer>
-        <WriteHearder />
+        <WriteHeader />
         <WriteFormContainer />
       </SyContainer>
     </SyPage>

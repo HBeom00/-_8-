@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const WriteHearder = () => {
+const WriteHeader = () => {
   const navigate = useNavigate();
 
   return (
@@ -12,7 +12,7 @@ const WriteHearder = () => {
   );
 };
 
-export default WriteHearder;
+export default WriteHeader;
 
 const SyHeader = styled.div`
   display: flex;
