@@ -9,15 +9,21 @@ const MyPost = () => {
     getPosts();
   }, []);
 
+  // DB data 받아오기
   async function getPosts() {
     const { data } = await supabase.from('store').select();
     setPosts([...data]);
   }
 
-  const onClickDeleteBtn = (id) => {
-    const deletePost = posts.filter((el) => el.id !== id);
-    setPosts(deletePost);
-  };
+  // DB data 삭제하기
+  async function ondeletePost(id) {
+    const { data } = await supabase.from('store').delete().eq('id', id).select();
+
+    const [deletedPost] = data;
+    const filterPost = posts.filter((post) => post.id !== deletedPost.id);
+
+    setPosts(filterPost);
+  }
 
   return (
     <SyWrapper>
@@ -33,7 +39,7 @@ const MyPost = () => {
             </div>
             <div>
               <button>수정</button>
-              <button onClick={() => onClickDeleteBtn(el.id)}>삭제</button>
+              <button onClick={() => ondeletePost(el.id)}>삭제</button>
             </div>
           </SyPostCard>
         );

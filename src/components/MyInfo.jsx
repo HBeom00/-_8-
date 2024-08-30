@@ -10,23 +10,23 @@ const MyInfo = () => {
       </SyImageDiv>
       <SyInfoDiv>
         <SyInfo>
-          ID:
+          <SyLable>ID:</SyLable>
           <SyInfoContent>heebeom</SyInfoContent>
         </SyInfo>
         <SyInfo>
-          PW:
+          <SyLable>PW:</SyLable>
           <SyInfoContent>{secretPW}</SyInfoContent>
         </SyInfo>
         <SyInfo>
-          Name:
+          <SyLable>Name:</SyLable>
           <SyInfoContent>햄식이</SyInfoContent>
         </SyInfo>
         <SyInfo>
-          한줄 소개:
+          <SyLable>한줄 소개:</SyLable>
           <SyInfoContent>요리조리</SyInfoContent>
         </SyInfo>
-        <SyButton>수정</SyButton>
       </SyInfoDiv>
+      <SyButton>수정</SyButton>
     </SyContainer>
   );
 };
@@ -40,8 +40,8 @@ const SyContainer = styled.div`
 
 const SyImageDiv = styled.div`
   position: absolute;
-  top: 25%;
-  left: 15%;
+  top: 16%;
+  left: 10%;
   border: 1px solid black;
   width: 150px;
   height: 150px;
@@ -56,21 +56,33 @@ const SyImage = styled.img``;
 const SyInfoDiv = styled.div`
   position: absolute;
   top: 20%;
-  left: 50%;
+  left: 40%;
   width: 300px;
 `;
 
 const SyInfo = styled.div`
   display: flex;
+  margin-bottom: 16px;
+`;
+
+const SyLable = styled.p`
+  width: 40%;
   margin-bottom: 30px;
+  text-align: right;
 `;
 
 const SyInfoContent = styled.p`
   margin-left: 20px;
+  width: 90%;
+  text-align: center;
 `;
 
 const SyButton = styled.button`
-  margin-top: 20px;
+  position: absolute;
+  left: 14%;
+  bottom: 41%;
+  width: 90px;
+
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
