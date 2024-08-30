@@ -1,5 +1,4 @@
 import MainList from '../components/MainList';
-import MainListSort from '../components/MainListSort';
 import ContentBox from '../layout/ContentBox';
 import Aside from '../layout/Aside';
 import Header from '../layout/Header';
@@ -19,7 +18,6 @@ const Main = () => {
         <Aside></Aside>
         <SyMainContent>
           <Header></Header>
-          <MainListSort />
           <MainList />
         </SyMainContent>
       </SyContent>

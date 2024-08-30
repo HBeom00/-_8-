@@ -1,33 +1,26 @@
-import supabase from '../supabaseClient';
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-const MainItem = () => {
-  const [posts, setPosts] = useState([1, 2, 3, 4, 5, 6]);
+const SyListItem = styled.li`
+  width: 50%;
+  margin-bottom: 50px;
+`;
 
-  useEffect(() => {
-    getPosts();
-  }, []);
-
-  async function getPosts() {
-    const { data } = await supabase.from('store').select('*');
-    setPosts(data);
-  }
-  console.log(posts);
-
+const MainItem = ({ data }) => {
   return (
-    <Link to="detail">
-      <li>
+    <SyListItem>
+      <Link to={`/detail?id=${data.id}`}>
         <div className="food_imgbox">
-          <img src="" alt="가상 이미지"></img>
+          <img src={data.img_path} alt="가상 이미지"></img>
         </div>
         <div className="text_box">
-          <strong>가게 상호명</strong>
-          <p>주소</p>
+          <strong>상표: {data.store_name}</strong>
+          <p>주소: {data.address}</p>
+          <span>지역: {data.location}</span>
         </div>
-        <p>후기</p>
-      </li>
-    </Link>
+        <p>리뷰: {data.comment}</p>
+      </Link>
+    </SyListItem>
   );
 };
 
