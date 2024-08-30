@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 // import WriteList from './WriteList';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import supabase from '../supabaseClient';
+import { useSearchParams } from 'react-router-dom';
+import { PostContext } from '../context/store';
 
 const WriteFormContainer = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +14,9 @@ const WriteFormContainer = () => {
     rating: '',
     review: ''
   });
+  const { posts, setPosts } = useContext(PostContext);
+  const [param] = useSearchParams();
+  const paramId = parseInt(param.get('id'));
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -24,6 +29,11 @@ const WriteFormContainer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (paramId) {
+      updatePost(paramId);
+      return;
+    }
 
     try {
       const { data, error } = await supabase.from('store').insert({
@@ -56,6 +66,27 @@ const WriteFormContainer = () => {
       alert('게시물 작성 중 오류 발생 다시 시도 바란다.');
     }
   };
+
+  // Data 수정
+  async function updatePost(paramId) {
+    const { data } = await supabase
+      .from('store')
+      .update({
+        writer: 'coolcat1',
+        store_name: formData.storeName,
+        address: formData.address,
+        location: formData.region,
+        star: formData.rating,
+        comment: formData.review
+      })
+      .eq('id', paramId)
+      .select();
+
+    const [updatedPost] = data;
+    const updatedList = posts.map((post) => (post.id === updatedPost.id ? updatedPost : post));
+
+    setPosts(updatedList);
+  }
 
   return (
     <SyFormContainer>
