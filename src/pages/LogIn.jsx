@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import supabase from '../supabaseClient';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const LogIn = () => {
+const LogIn = ({setSignIn}) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUsers] = useState([]);
   const [info, setInfo] = useState({
     email: '',
     password: ''
   });
+  const path = location.state?.redirectedFrom || "/";
 
   const handleChangeInput = (event, keyName) => {
     const value = event.target.value;
@@ -28,10 +32,13 @@ const LogIn = () => {
       });
 
       if (error) {
+        alert("이메일과 패스워드를 다시 확인해주세요!");
         throw error;
       }
 
       console.log('User signed up:', data);
+      setSignIn(true);
+      navigate(path, { replace: true });
     } catch (error) {
       console.error('Error signing up:', error);
     }
@@ -63,13 +70,13 @@ const LogIn = () => {
             />
           </InputBoxs>
           <ButtonBoxs>
-            <LoginSignUpButton>Sign up</LoginSignUpButton>
+            <LoginSignUpButton onClick={() => navigate("/signup")}>Sign up</LoginSignUpButton>
             <LoginButtonn type="button" onClick={handleAddInfo}>
               Login
             </LoginButtonn>
           </ButtonBoxs>
         </div>
-        <GotoBackbutton>back</GotoBackbutton>
+        <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
       </LoginContainer>
     </StPageContainer>
   );
