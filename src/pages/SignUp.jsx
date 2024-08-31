@@ -30,7 +30,8 @@ const SignUp = () => {
         options: {
           data: {
             nickname: info.nickname,
-            introduction: info.introduction
+            introduction: info.introduction,
+            profile_img: 'default.jpg'
           }
         }
       });
