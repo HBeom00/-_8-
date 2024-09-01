@@ -48,9 +48,13 @@ const WriteFormContainer = () => {
       //   // 업로드 된 이미지의 공개 URL 가져오기
       //   imagePath = `${supabase.storage.from('storage_img').getPublicUrl(`public/${fileName}`).data.publicUrl}`;
       // }
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
+      const userId = user.id;
 
       const { data, error } = await supabase.from('store').insert({
-        writer: 'f52f4f9b-889c-4d8c-b0d1-261bc9491596',
+        writer: userId,
         store_name: formData.storeName,
         // image: imagePath,
         address: formData.address,
@@ -82,10 +86,15 @@ const WriteFormContainer = () => {
 
   // Data 수정
   async function updatePost(paramId) {
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
+    const userId = user.id;
+
     const { data } = await supabase
       .from('store')
       .update({
-        writer: 'coolcat1',
+        writer: userId,
         store_name: formData.storeName,
         address: formData.address,
         location: formData.region,
@@ -94,7 +103,7 @@ const WriteFormContainer = () => {
       })
       .eq('id', paramId)
       .select();
-
+    console.log(data, 'checkout');
     const [updatedPost] = data;
     const updatedList = posts.map((post) => (post.id === updatedPost.id ? updatedPost : post));
 
