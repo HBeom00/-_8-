@@ -44,7 +44,7 @@ const WriteFormContainer = () => {
       // 이미지 업로드
       let imagePath = null;
 
-      const storeFile = FormData.image;
+      const storeFile = formData.image;
 
       if (storeFile) {
         const fileName = `public/${userId}_${Date.now()}.png`;
@@ -55,6 +55,7 @@ const WriteFormContainer = () => {
 
         if (uploadError) throw uploadError;
 
+        // 이미지 업로드 된 이미지의 공개 URL 가져오기
         const {
           data: { publicUrl },
           error: urlError
@@ -64,6 +65,7 @@ const WriteFormContainer = () => {
         imagePath = publicUrl;
       }
 
+      // 게시물 데이터 삽입
       const { data, error } = await supabase.from('store').insert({
         writer: userId,
         store_name: formData.storeName,
@@ -97,28 +99,54 @@ const WriteFormContainer = () => {
 
   // Data 수정
   async function updatePost(paramId) {
-    const {
-      data: { user }
-    } = await supabase.auth.getUser();
-    const userId = user.id;
+    try {
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
+      const userId = user.id;
 
-    const { data } = await supabase
-      .from('store')
-      .update({
+      let updateData = {
         writer: userId,
         store_name: formData.storeName,
         address: formData.address,
         location: formData.region,
         star: formData.rating,
         comment: formData.review
-      })
-      .eq('id', paramId)
-      .select();
-    console.log(data, 'checkout');
-    const [updatedPost] = data;
-    const updatedList = posts.map((post) => (post.id === updatedPost.id ? updatedPost : post));
+      };
 
-    setPosts(updatedList);
+      // 이미지 수정 로직
+      if (formData.image) {
+        const fileName = `public/${userId}_${Date.now()}.png`;
+        const { data, error: uploadError } = await supabase.storage.from('store_img').upload(fileName, formData.image, {
+          cacheContrl: '60',
+          upsert: false
+        });
+
+        if (uploadError) throw uploadError;
+
+        //업로드된 이미지 공개 URL 가져오기
+        const {
+          data: { publicUrl },
+          error: urlError
+        } = supabase.storage.from('store_img').getPublicUrl(fileName);
+
+        if (urlError) throw urlError;
+        updateData.img_path = publicUrl;
+      }
+
+      const { data, error } = await supabase.from('store').update(updateData).eq('id', paramId).select();
+
+      if (error) throw error;
+      const [updatedPost] = data;
+      const updatedList = posts.map((post) => (post.id === updatedPost.id ? updatedPost : post));
+
+      setPosts(updatedList);
+
+      alert('게시물이 성공적으로 수정되었습니다!');
+    } catch (error) {
+      console.error('게시물 수정 중 오류 발생', error.message);
+      alert('게시물 수정 중 오류 발생!');
+    }
   }
 
   return (
