@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 // import WriteList from './WriteList';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import supabase from '../supabaseClient';
 import { useSearchParams } from 'react-router-dom';
 import { PostContext } from '../context/store';
@@ -17,6 +17,33 @@ const WriteFormContainer = () => {
   const { posts, setPosts } = useContext(PostContext);
   const [param] = useSearchParams();
   const paramId = parseInt(param.get('id'));
+
+  // 수정시 데이터 불러오기
+  useEffect(() => {
+    if (paramId) {
+      fetchPostData(paramId);
+    }
+  }, [paramId]);
+
+  // 기존 데이터 불러오는 함수
+  const fetchPostData = async (id) => {
+    try {
+      const { data, error } = await supabase.from('store').select('*').eq('id', id).single();
+
+      if (error) throw error;
+
+      setFormData({
+        storeName: data.store_name,
+        image: null,
+        address: data.address,
+        location: data.location,
+        star: data.star,
+        review: data.comment
+      });
+    } catch (error) {
+      alert('게시글 불러오기 실패..');
+    }
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -151,7 +178,7 @@ const WriteFormContainer = () => {
 
   return (
     <SyFormContainer>
-      <h2>맛집 게시글 작성</h2>
+      <h2>{paramId ? '맛집 게시글 수정' : '맛집 게시글 작성'}</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="storeName">가게 상호명</label>
@@ -196,7 +223,7 @@ const WriteFormContainer = () => {
           <textarea id="review" rows="5" value={formData.review} onChange={handleChange}></textarea>
         </div>
         <div>
-          <button type="submit">게시글 등록</button>
+          <button type="submit">{paramId ? '게시글 수정' : '게시글 등록'}</button>
         </div>
       </form>
 
