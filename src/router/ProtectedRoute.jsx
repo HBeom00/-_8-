@@ -1,12 +1,13 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom"
+import { useLoginContext } from "../context/LoginContext";
 
-export const ProtectedRoute = ({ isSignIn }) => {
+export const ProtectedRoute = () => {
   const {pathname} = useLocation();
-  console.log(pathname);
+  const {isSignIn} = useLoginContext();
 
-  if(!isSignIn) {
-    return <Navigate to="/login" replace state={{redirectedFrom: pathname,}}/>
-  }
+
+  if(!isSignIn) return <Navigate to="/login" replace state={{redirectedFrom: pathname,}}/>;
+
 
   return <Outlet />
 }
