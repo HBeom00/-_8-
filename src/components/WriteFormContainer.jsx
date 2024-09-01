@@ -2,7 +2,7 @@ import styled from 'styled-components';
 // import WriteList from './WriteList';
 import { useState, useContext, useEffect } from 'react';
 import supabase from '../supabaseClient';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { PostContext } from '../context/store';
 
 const WriteFormContainer = () => {
@@ -14,6 +14,8 @@ const WriteFormContainer = () => {
     rating: '',
     review: ''
   });
+  const navigate = useNavigate();
+  const [originalFormData, setOriginalFormData] = useState({});
   const { posts, setPosts } = useContext(PostContext);
   const [param] = useSearchParams();
   const paramId = parseInt(param.get('id'));
@@ -54,8 +56,31 @@ const WriteFormContainer = () => {
     setFormData((prevData) => ({ ...prevData, image: e.target.files[0] }));
   };
 
+  // 폼 유효성 검사 함수
+  const validateForm = () => {
+    for (const key in formData) {
+      if (formData[key] === '' || formData[key] === null) {
+        alert(`모든 입력 부분을 채워주세요!`);
+        return false;
+      }
+    }
+    return true;
+  };
+
+  // 데이터 변경 여부 확인 함수
+  const isDataChanged = () => {
+    return JSON.stringify(formData) !== JSON.stringify(originalFormData);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
+
+    if (paramId && !isDataChanged()) {
+      alert('수정된 부분이 없습니다!');
+      return;
+    }
 
     if (paramId) {
       updatePost(paramId);
@@ -103,10 +128,7 @@ const WriteFormContainer = () => {
         comment: formData.review
       });
 
-      console.log('응답값', data);
-
       if (error) throw error;
-      console.log('게시물이 성공적으로 생성되었습니다', data);
 
       setFormData({
         storeName: '',
@@ -118,9 +140,10 @@ const WriteFormContainer = () => {
       });
 
       alert('게시물이 성공적으로 작성되었습니다!');
+      navigate('/');
     } catch (error) {
       console.error('게시물 작성 중 오류 발생', error.message);
-      alert('게시물 작성 중 오류 발생 다시 시도 바란다.');
+      alert('게시물 작성 중 오류 발생...');
     }
   };
 
@@ -170,9 +193,10 @@ const WriteFormContainer = () => {
       setPosts(updatedList);
 
       alert('게시물이 성공적으로 수정되었습니다!');
+      navigate('/');
     } catch (error) {
       console.error('게시물 수정 중 오류 발생', error.message);
-      alert('게시물 수정 중 오류 발생!');
+      alert('게시물 수정 중 오류 발생...');
     }
   }
 
