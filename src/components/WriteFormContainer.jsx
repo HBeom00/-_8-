@@ -226,12 +226,6 @@ const WriteFormContainer = () => {
           <button type="submit">{paramId ? '게시글 수정' : '게시글 등록'}</button>
         </div>
       </form>
-
-      {/* <div>
-        {posts.map((post) => (
-          <WriteList key={post.id} post={post} />
-        ))}
-      </div> */}
     </SyFormContainer>
   );
 };
