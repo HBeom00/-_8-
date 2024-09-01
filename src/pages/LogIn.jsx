@@ -2,10 +2,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLoginContext } from '../context/LoginContext';
 
-const LogIn = ({setSignIn}) => {
+const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const{setSignIn} = useLoginContext();
   const [user, setUsers] = useState([]);
   const [info, setInfo] = useState({
     email: '',
