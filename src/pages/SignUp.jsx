@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [info, setInfo] = useState({
     email: '',
@@ -30,17 +32,22 @@ const SignUp = () => {
         options: {
           data: {
             nickname: info.nickname,
-            introduction: info.introduction,
-            profile_img: 'default.jpg'
+            avatar_url: 'default.jpg',
+            comment: info.introduction
           }
         }
       });
 
       if (error) {
+        alert('입력 정보를 다시 확인해주세요!');
         throw error;
       }
 
       console.log('User signed up:', data);
+      const { error: logoutError } = await supabase.auth.signOut(); // 회원가입 후 자동 로그인 해제를 위한 로그아웃
+      let like = confirm('로그인 화면으로 이동하시겠습니까?');
+      if (like) navigate('/login');
+      else navigate('/');
     } catch (error) {
       console.error('Error signing up:', error);
     }
@@ -48,7 +55,7 @@ const SignUp = () => {
 
   return (
     <div>
-      <GotoBackbutton>back</GotoBackbutton>
+      <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
       <div
         type="img"
         value={info.img}
