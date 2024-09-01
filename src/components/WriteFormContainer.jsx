@@ -36,23 +36,23 @@ const WriteFormContainer = () => {
     }
 
     try {
-      let imagePath = null;
+      // let imagePath = null;
 
-      // 이미지 업로드
-      if (formData.image) {
-        const fileName = `store_img_${Date.now()}.png`;
-        const { data, error } = await supabase.storage.from('store_img').upload(`public/${fileName}`, formData.image);
+      // // 이미지 업로드
+      // if (formData.image) {
+      //   const fileName = `store_img_${Date.now()}.png`;
+      //   const { data, error } = await supabase.storage.from('store_img').upload(`public/${fileName}`, formData.image);
 
-        if (error) throw error;
+      //   if (error) throw error;
 
-        // 업로드 된 이미지의 공개 URL 가져오기
-        imagePath = `${supabase.storage.from('storage_img').getPublicUrl(`public/${fileName}`).data.publicUrl}`;
-      }
+      //   // 업로드 된 이미지의 공개 URL 가져오기
+      //   imagePath = `${supabase.storage.from('storage_img').getPublicUrl(`public/${fileName}`).data.publicUrl}`;
+      // }
 
       const { data, error } = await supabase.from('store').insert({
-        writer: 'coolcat1',
+        writer: 'f52f4f9b-889c-4d8c-b0d1-261bc9491596',
         store_name: formData.storeName,
-        image: imagePath,
+        // image: imagePath,
         address: formData.address,
         location: formData.region,
         star: formData.rating,
