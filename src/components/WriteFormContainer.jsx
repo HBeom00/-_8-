@@ -116,10 +116,10 @@ const WriteFormContainer = () => {
 
       // 이미지 수정 로직
       if (formData.image) {
-        const fileName = `public/${userId}_${Date.now()}.png`;
+        const fileName = `public/${userId}_${paramId}.png`;
         const { data, error: uploadError } = await supabase.storage.from('store_img').upload(fileName, formData.image, {
-          cacheContrl: '60',
-          upsert: false
+          cacheControl: '60',
+          upsert: true
         });
 
         if (uploadError) throw uploadError;
