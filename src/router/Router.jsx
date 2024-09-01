@@ -5,11 +5,12 @@ import SignUp from '../pages/SignUp';
 import DetailPage from '../pages/DetailPage';
 import Mypage from '../pages/Mypage';
 import Writing from '../pages/Writing';
-import { useState } from 'react';
+import ProtectedMain from '../pages/ProtectedMain';
 import { ProtectedRoute } from './ProtectedRoute';
+import { useLoginContext } from '../context/LoginContext';
 
 const Router = () => {
-  const [isSignIn, setSignIn] = useState(false);
+  const {isSignIn} = useLoginContext();
 
   const publicRoutes = [
     {
@@ -25,7 +26,7 @@ const Router = () => {
     },
     {
       path: "/login",
-      element: <LogIn setSignIn={setSignIn} />
+      element: <LogIn />
     },
     {
       path: "/signup",
@@ -36,11 +37,11 @@ const Router = () => {
   const routesForAuthenticatedOnly = [
     {
       path: "",
-      element: <ProtectedRoute isSignIn={isSignIn} />,
+      element: <ProtectedRoute />,
       children: [
         {
           path: "/",
-          element: <Main />
+          element: <ProtectedMain />
         },
         {
           path: "/mypage",
