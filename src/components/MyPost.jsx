@@ -14,7 +14,12 @@ const MyPost = () => {
 
   // DB data 가져오기
   async function getPosts() {
-    const { data } = await supabase.from('store').select();
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
+    const userId = user.id;
+    const { data } = await supabase.from('store').select().eq('writer', userId);
+
     setPosts([...data]);
   }
 
@@ -30,23 +35,25 @@ const MyPost = () => {
 
   return (
     <SyWrapper>
-      {posts.map((el) => {
-        return (
-          <SyPostCard key={el.id}>
-            <div>
-              <img src={el.img_path} alt="food_img" style={{ width: '200px' }} />
-            </div>
-            <div>
-              <div>{el.store_name}</div>
-              <div>{el.comment}</div>
-            </div>
-            <div>
-              <button onClick={() => navigate(`/writing?id=${el.id}`)}>수정</button>
-              <button onClick={() => ondeletePost(el.id)}>삭제</button>
-            </div>
-          </SyPostCard>
-        );
-      })}
+      {posts
+        .sort((a, b) => b.id - a.id)
+        .map((el) => {
+          return (
+            <SyPostCard key={el.id}>
+              <div>
+                <img src={el.img_path} alt="food_img" style={{ width: '200px' }} />
+              </div>
+              <div>
+                <div>{el.store_name}</div>
+                <div>{el.comment}</div>
+              </div>
+              <div>
+                <button onClick={() => navigate(`/writing?id=${el.id}`)}>수정</button>
+                <button onClick={() => ondeletePost(el.id)}>삭제</button>
+              </div>
+            </SyPostCard>
+          );
+        })}
     </SyWrapper>
   );
 };
