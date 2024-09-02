@@ -9,27 +9,37 @@ const Mypage = () => {
   const navigate = useNavigate();
 
   return (
-    <SyWrapper>
-      <SyTitle>My Page</SyTitle>
-      <SyContainer>
-        <SyButtonDiv>
-          <SyButton className="info" onClick={() => setIsSelect('myinfo')}>
-            내 정보
-          </SyButton>
-          <SyButton className="post" onClick={() => setIsSelect('mypost')}>
-            내 게시글
-          </SyButton>
-        </SyButtonDiv>
-        <SyPost>{isSelect === 'myinfo' ? <MyInfo /> : <MyPost />}</SyPost>
-      </SyContainer>
-      <SyButton className="back-button" onClick={() => navigate(-1)}>
-        back
-      </SyButton>
-    </SyWrapper>
+    <SyDiv>
+      <SyWrapper>
+        <SyTitle>My Page</SyTitle>
+        <SyContainer>
+          <SyButtonDiv>
+            <SyButton className="info" onClick={() => setIsSelect('myinfo')}>
+              내 정보
+            </SyButton>
+            <SyButton className="post" onClick={() => setIsSelect('mypost')}>
+              내 게시글
+            </SyButton>
+          </SyButtonDiv>
+          <SyPost>{isSelect === 'myinfo' ? <MyInfo /> : <MyPost />}</SyPost>
+        </SyContainer>
+        <SyButton className="back-button" onClick={() => navigate(-1)}>
+          back
+        </SyButton>
+      </SyWrapper>
+    </SyDiv>
   );
 };
 
 export default Mypage;
+
+const SyDiv = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const SyWrapper = styled.div`
   width: 55%;
