@@ -10,6 +10,7 @@ const MyInfo = () => {
   const [changeComment, setChangeComment] = useState('');
   const fileInputRef = useRef(null);
   const { profileUrl, setProfileUrl } = useContext(PostContext);
+  const randomNum = new Date().getTime();
 
   useEffect(() => {
     getInfo();
@@ -58,9 +59,11 @@ const MyInfo = () => {
 
   // 기본 프로필 설정
   function baseProfile() {
-    const { data } = supabase.storage.from('profile_img').getPublicUrl('default-profile.jpg');
+    // const { data } = supabase.storage.from('profile_img').getPublicUrl('default-profile.jpg');
 
-    setProfileUrl(data.publicUrl);
+    setProfileUrl(
+      `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/public/heehee@naver.com/new_profile.png?date=${randomNum}`
+    );
   }
 
   // 프로필 수정
@@ -70,11 +73,13 @@ const MyInfo = () => {
     if (!file) {
       return;
     }
-    console.log(file, 'file값');
-    const { data } = await supabase.storage.from('profile_img').update('default-profile.jpg', file, {
-      cacheControl: '10',
-      upsert: true
-    });
+
+    const { data } = await supabase.storage
+      .from('profile_img')
+      .upload(`public/${userInfo.email}/new_profile.png`, file, {
+        cacheControl: '0',
+        upsert: true
+      });
 
     setProfileUrl(`https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${data.path}`);
 
