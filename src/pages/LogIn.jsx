@@ -7,8 +7,7 @@ import { useLoginContext } from '../context/LoginContext';
 const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const{setSignIn} = useLoginContext();
-  const [user, setUsers] = useState([]);
+  const{logIn} = useLoginContext();
   const [info, setInfo] = useState({
     email: '',
     password: ''
@@ -39,7 +38,7 @@ const LogIn = () => {
       }
 
       console.log('User signed up:', data);
-      setSignIn(true);
+      logIn();
       navigate(path, { replace: true });
     } catch (error) {
       console.error('Error signing up:', error);

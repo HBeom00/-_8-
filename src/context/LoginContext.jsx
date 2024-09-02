@@ -1,39 +1,43 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import supabase from "../supabaseClient";
 
 const LoginContext = createContext();
 
 const LoginProvider = ({ children }) => {
-  const [isSignIn, setSignIn] = useState(false);
+  // isSignIn 초기값을 localStorage의 LoginToken에 설정한 값으로 초기화
+  const [isSignIn, setSignIn] = useState(!!localStorage.getItem("LoginToken"));
+  
+  // session 상태를 확인하여 token이 true여도 isSignIn은 false가 되게 변경
+  useEffect(() => {
+    checkSignIn();
+  }, []);
+  
+  // 유저가 로그인 상태인가 확인하는 로직
+  const checkSignIn = async() => {
+    const session = await supabase.auth.getSession();
+    setSignIn(!!session.data.session);
+  };
 
-  // // 유저가 로그인 상태인가 확인하는 로직
-  // const checkSignIn = async() => {
-  //   const session = await supabase.auth.getSession();
-  //   setSignIn(!!session.data.session);
-  //   return !!session.data.session;
-  // };
-
-  // 임시 해결 : localStorage로 값이 저장되어 있는가 판별
-  // const isLocal = window.localStorage.getItem('sb-dsbqloxhsrfdkumyhtlg-auth-token');
-
-  // 유저 정보를 가져오는 로직
-  const getUser = async() => {
-    const { data: { loginUser } } = await supabase.auth.getUser();
-    return loginUser;
+  // 로그인 로직
+  const logIn = () => {
+    setSignIn(true);
+    window.localStorage.setItem("LoginToken", true);
   };
 
   // 로그아웃 로직
   const logOut = async() => {
     const { error } = await supabase.auth.signOut();
     setSignIn(false);
+    window.localStorage.setItem("LoginToken", false);
   };
 
   const contextValue = {
     isSignIn,
     // isLocal,
     setSignIn, 
-    // checkSignIn,
-    getUser,
+    checkSignIn,
+    // getUser,
+    logIn,
     logOut
   };
 

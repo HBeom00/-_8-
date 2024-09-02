@@ -10,7 +10,8 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { useLoginContext } from '../context/LoginContext';
 
 const Router = () => {
-  const {isSignIn} = useLoginContext();
+  const {isSignIn, checkSignIn} = useLoginContext();
+  checkSignIn();
 
   const publicRoutes = [
     {
