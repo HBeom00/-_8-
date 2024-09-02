@@ -101,6 +101,12 @@ const WriteFormContainer = () => {
 
       let imagePath = null;
 
+      // 이미지 유효성 검사
+      if (!formData.image) {
+        alert('이미지를 반드시 업로드해야 합니다.');
+        return;
+      }
+
       const storeFile = formData.image;
 
       if (storeFile) {
@@ -230,11 +236,11 @@ const WriteFormContainer = () => {
           <label htmlFor="location">지역</label>
           <select id="location" value={formData.location} onChange={handleChange}>
             <option value="">선택하세요</option>
-            <option value="지역1">지역1</option>
-            <option value="지역2">지역2</option>
-            <option value="지역3">지역3</option>
-            <option value="지역4">지역4</option>
-            <option value="지역5">지역5</option>
+            <option value="강남">강남</option>
+            <option value="성수">성수</option>
+            <option value="압구정">압구정</option>
+            <option value="이태원">이태원</option>
+            <option value="홍대">홍대</option>
           </select>
         </div>
 
