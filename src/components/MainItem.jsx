@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const SyListItem = styled.li`
   width: 50%;
   margin-bottom: 50px;
+  height: 50px;
 `;
 
 const MainItem = ({ data }) => {

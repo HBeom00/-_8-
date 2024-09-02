@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import MainItem from './MainItem';
-import supabase from '../supabaseClient';
 import MainListSort from './MainListSort';
 import styled from 'styled-components';
+import supabase from '../supabaseClient';
 
 const SyListBox = styled.ul`
   display: flex;
@@ -11,6 +11,8 @@ const SyListBox = styled.ul`
 
 const MainList = () => {
   const [posts, setPosts] = useState([]);
+  const [sortData, setSorte] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     getPosts();
@@ -18,24 +20,32 @@ const MainList = () => {
 
   async function getPosts() {
     const { data } = await supabase.from('store').select('*');
+    setSorte(data);
     setPosts(data);
   }
 
-  console.log(posts);
+  const handleSearch = () => {
+    const searchData = posts.filter((list) => {
+      return list.store_name == search;
+    });
+    setPosts([...searchData]);
+  };
+
+  const handleSort = function (location) {
+    const newPost = sortData.filter((list) => {
+      return list.location == location;
+    });
+    setPosts(newPost);
+  };
   return (
     <div>
-      <MainListSort data={posts} />
-      <button
-        onClick={function () {
-          const newPost = posts.filter((list) => {
-            return list.location == '지역1';
-          });
-          console.log(newPost);
-          setPosts(newPost);
-        }}
-      >
-        솔트 정렬
-      </button>
+      <MainListSort
+        data={posts}
+        handleSort={handleSort}
+        handleSearch={handleSearch}
+        setSearch={setSearch}
+        search={search}
+      />
       맛집 리스트
       <SyListBox>
         {posts.map((list) => {
