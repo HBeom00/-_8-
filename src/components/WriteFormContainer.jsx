@@ -22,8 +22,6 @@ const WriteFormContainer = () => {
   useEffect(() => {
     if (paramId) {
       fetchPostData(paramId);
-    } else {
-      setOriginalFormData({ ...formData });
     }
   }, [paramId]);
 
