@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { PostContext } from '../context/store';
+import { PostContext } from '../context/MypageContext';
 
 const MyInfo = () => {
   const [userInfo, setUserInfo] = useState([]);
@@ -154,9 +154,9 @@ const SyContainer = styled.div`
 
 const SyImageDiv = styled.div`
   position: absolute;
-  top: 16%;
+  top: 25%;
   left: 10%;
-  width: 150px;
+  width: 240px;
   height: 150px;
   border-radius: 50%;
   display: flex;
@@ -166,13 +166,16 @@ const SyImageDiv = styled.div`
 
 const SyImage = styled.img`
   width: 100%;
+  border-radius: 50%;
 `;
 
 const SyInfoDiv = styled.div`
   position: absolute;
-  top: 20%;
-  left: 40%;
-  width: 300px;
+  top: 27%;
+  left: 47%;
+  width: 340px;
+  font-size: 20px;
+  font-weight: 900;
 `;
 
 const SyInfo = styled.div`
@@ -194,10 +197,9 @@ const SyInfoContent = styled.p`
 
 const SyButton = styled.button`
   position: absolute;
-  left: 15%;
-  bottom: 35%;
+  left: 18%;
+  bottom: 33%;
   width: 90px;
-
   padding: 10px 20px;
   background-color: #007bff;
   color: white;

@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import { PostContext } from '../context/store';
+import { PostContext } from '../context/MypageContext';
 
 const MyPost = () => {
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const MyPost = () => {
           return (
             <SyPostCard key={el.id}>
               <div>
-                <img src={el.img_path} alt="food_img" style={{ width: '200px' }} />
+                <SyProfileImg src={el.img_path} alt="food_img" />
               </div>
               <div>
                 <div>{el.store_name}</div>
@@ -62,13 +62,19 @@ const SyWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 26px;
+  gap: 28px;
   justify-content: center;
   align-items: center;
   overflow-y: auto;
 `;
 const SyPostCard = styled.div`
+  border-radius: 12px;
   border: 1px solid black;
-  width: 40%;
-  height: 45%;
+  width: 44%;
+  height: 46%;
+`;
+
+const SyProfileImg = styled.img`
+  width: 100%;
+  border-radius: 12px 12px 0 0;
 `;
