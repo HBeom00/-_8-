@@ -32,8 +32,8 @@ const Mypage = () => {
 export default Mypage;
 
 const SyWrapper = styled.div`
-  width: 65%;
-  height: 80%;
+  width: 55%;
+  height: 70%;
   border: 1px solid black;
   border-radius: 8px;
   background-color: #dfdfdf;
@@ -74,7 +74,7 @@ const SyButton = styled.div`
     right: 10%;
   }
   &.post {
-    width: 30%;
+    width: 35%;
     text-align: center;
     position: absolute;
     top: 30%;
