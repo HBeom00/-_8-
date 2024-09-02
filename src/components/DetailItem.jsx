@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import supabase from '../supabaseClient';
 
 const DetailItem = () => {
-  const navigate = useNavigate;
   const [posts, setPosts] = useState();
 
   const [searchParams] = useSearchParams();
@@ -14,13 +13,13 @@ const DetailItem = () => {
   }, []);
 
   async function getPosts() {
-    const { data } = await supabase.from('store').select(`*, userInfo ( id, name )`).eq('id', id);
+    const { data } = await supabase.from('store').select(`*`).eq('id', id);
     setPosts(data[0]);
   }
 
   return (
     <div>
-      <button onClick={() => navigate('/', { replace: true })}>뒤로가기</button>
+      <button onClick={() => history.go(-1)}>뒤로가기</button>
       <div className="profile_box">
         <div className="img_box">
           <img src="" alt="프로필 이미지" />
