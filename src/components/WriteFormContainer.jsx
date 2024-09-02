@@ -27,6 +27,7 @@ const WriteFormContainer = () => {
     }
   }, [paramId]);
 
+  // 수정 시 기존 데이터 불러오기
   const fetchPostData = async (id) => {
     try {
       const { data, error } = await supabase.from('store').select('*').eq('id', id).single();
@@ -54,10 +55,10 @@ const WriteFormContainer = () => {
   };
 
   const handleFileChange = (e) => {
-    console.log('Selected file:', e.target.files[0]);
     setFormData((prevData) => ({ ...prevData, image: e.target.files[0] }));
   };
 
+  // 유효성 검사(1): 빈칸 검사
   const validateForm = () => {
     const requiredFields = ['store_name', 'address', 'location', 'star', 'comment'];
     for (const field of requiredFields) {
@@ -69,11 +70,13 @@ const WriteFormContainer = () => {
     return true;
   };
 
+  // 유효성 검사(2): 수정된 부분이 있는지 검사
   const isDataChanged = () => {
     const compareFields = ['store_name', 'address', 'location', 'star', 'comment'];
     return compareFields.some((field) => formData[field] !== originalFormData[field]) || formData.image !== undefined;
   };
 
+  // 제출 폼 함수
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -90,6 +93,7 @@ const WriteFormContainer = () => {
     }
   };
 
+  // 게시글 생성 함수
   const createPost = async () => {
     try {
       const {
@@ -139,6 +143,7 @@ const WriteFormContainer = () => {
     }
   };
 
+  // 게시글 업데이트 함수
   const updatePost = async (paramId) => {
     try {
       const {
@@ -156,7 +161,6 @@ const WriteFormContainer = () => {
       };
 
       if (formData.image) {
-        console.log('Uploading new image:', formData.image);
         const fileName = `public/${userId}_${paramId}.png`;
         const { data, error: uploadError } = await supabase.storage.from('store_img').upload(fileName, formData.image, {
           cacheControl: '60',
