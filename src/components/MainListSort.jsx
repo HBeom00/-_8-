@@ -5,27 +5,56 @@ const SyBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const MainListSort = () => {
+const MainListSort = ({ search, setSearch, handleSort, handleSearch }) => {
   const navigate = useNavigate();
+
+  const sortData = [
+    {
+      id: 1,
+      location: '지역1'
+    },
+    {
+      id: 2,
+      location: '지역2'
+    },
+    {
+      id: 3,
+      location: '지역3'
+    },
+    {
+      id: 4,
+      location: '지역4'
+    },
+    {
+      id: 5,
+      location: '지역5'
+    }
+  ];
 
   return (
     <SyBtnBox>
       <div>
-        <button type="button" onClick={() => console.log}>
-          강남
-        </button>
-        <button type="button" onClick={() => console.log}>
-          성수
-        </button>
-        <button type="button" onClick={() => console.log}>
-          망원
-        </button>
-        <button type="button" onClick={() => console.log}>
-          잠실
-        </button>
-        <button type="button" onClick={() => console.log}>
-          압구정
-        </button>
+        {sortData.map((list) => {
+          return (
+            <button
+              key={list.id}
+              onClick={() => {
+                handleSort(list.location);
+              }}
+            >
+              {list.location}
+            </button>
+          );
+        })}
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          placeholder="검색어를 입력해주세요"
+        />
+        <button onClick={handleSearch}>검색하기</button>
       </div>
       <div>
         <button onClick={() => navigate('/Writing')}>추가하기</button>

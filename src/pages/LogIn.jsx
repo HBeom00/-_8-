@@ -2,16 +2,17 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useLoginContext } from '../context/LoginContext';
 
-const LogIn = ({setSignIn}) => {
+const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUsers] = useState([]);
+  const { setSignIn } = useLoginContext();
   const [info, setInfo] = useState({
     email: '',
     password: ''
   });
-  const path = location.state?.redirectedFrom || "/";
+  const path = location.state?.redirectedFrom || '/';
 
   const handleChangeInput = (event, keyName) => {
     const value = event.target.value;
@@ -32,7 +33,7 @@ const LogIn = ({setSignIn}) => {
       });
 
       if (error) {
-        alert("이메일과 패스워드를 다시 확인해주세요!");
+        alert('이메일과 패스워드를 다시 확인해주세요!');
         throw error;
       }
 
@@ -58,7 +59,7 @@ const LogIn = ({setSignIn}) => {
               onChange={(event) => {
                 handleChangeInput(event, 'email');
               }}
-              placeholder="ID"
+              placeholder="Email"
             />
             <LoginInputForPassWord
               type="text"
@@ -70,7 +71,7 @@ const LogIn = ({setSignIn}) => {
             />
           </InputBoxs>
           <ButtonBoxs>
-            <LoginSignUpButton onClick={() => navigate("/signup")}>Sign up</LoginSignUpButton>
+            <LoginSignUpButton onClick={() => navigate('/signup')}>Sign up</LoginSignUpButton>
             <LoginButtonn type="button" onClick={handleAddInfo}>
               Login
             </LoginButtonn>
