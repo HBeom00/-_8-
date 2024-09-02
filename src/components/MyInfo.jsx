@@ -1,32 +1,144 @@
 import styled from 'styled-components';
+import supabase from '../supabaseClient';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { PostContext } from '../context/store';
 
 const MyInfo = () => {
-  let password = 'shinheebeom';
-  let secretPW = '*'.repeat(password.length);
+  const [userInfo, setUserInfo] = useState([]);
+  const [isonClickUpdateBtn, setIsonClickUpdateBtn] = useState(true);
+  const [changeName, setChangeName] = useState('');
+  const [changeComment, setChangeComment] = useState('');
+  const fileInputRef = useRef(null);
+  const { profileUrl, setProfileUrl } = useContext(PostContext);
+  const randomNum = new Date().getTime();
+
+  useEffect(() => {
+    getInfo();
+    baseProfile();
+  }, []);
+
+  // 유저 정보 가져오기
+  async function getInfo() {
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
+
+    setUserInfo(user.user_metadata);
+  }
+
+  // 수정 버튼 클릭시 불린값 변경
+  const onUpdateInfoBtn = async (id) => {
+    if (isonClickUpdateBtn === false) {
+      if (changeName.length === 0 || changeComment.length === 0) {
+        alert('내용을 입력해주세요.');
+        return;
+      }
+      updatePost(id);
+    }
+
+    setIsonClickUpdateBtn((prev) => !prev);
+  };
+
+  // 유저 정보 수정
+  async function updatePost(id) {
+    // profiles 테이블 정보 수정
+    await supabase
+      .from('profiles')
+      .update({
+        nickname: changeName,
+        comment: changeComment
+      })
+      .eq('id', id)
+      .select();
+
+    // auth 정보 수정
+    await supabase.auth.updateUser({
+      data: { nickname: changeName, comment: changeComment }
+    });
+  }
+
+  // 기본 프로필 설정
+  function baseProfile() {
+    // const { data } = supabase.storage.from('profile_img').getPublicUrl('default-profile.jpg');
+
+    setProfileUrl(
+      `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/public/heehee@naver.com/new_profile.png?date=${randomNum}`
+    );
+  }
+
+  // 프로필 수정
+  async function handleFileInputChange(files) {
+    const [file] = files;
+
+    if (!file) {
+      return;
+    }
+
+    const { data } = await supabase.storage
+      .from('profile_img')
+      .upload(`public/${userInfo.email}/new_profile.png`, file, {
+        cacheControl: '0',
+        upsert: true
+      });
+
+    setProfileUrl(`https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${data.path}`);
+
+    // profiles 테이블에서 이미지 값 변경
+    await supabase
+      .from('profiles')
+      .update({
+        avatar_url: data.path
+      })
+      .eq('id', userInfo.sub)
+      .select();
+
+    // auth에서 이미지 값 변경
+    await supabase.auth.updateUser({
+      data: { avatar_url: data.path }
+    });
+  }
+
   return (
     <SyContainer>
       <SyImageDiv>
-        <SyImage src="" alt="사진" />
+        <SyImage src={profileUrl} alt="사진" />
       </SyImageDiv>
       <SyInfoDiv>
         <SyInfo>
           <SyLable>ID:</SyLable>
-          <SyInfoContent>heebeom</SyInfoContent>
-        </SyInfo>
-        <SyInfo>
-          <SyLable>PW:</SyLable>
-          <SyInfoContent>{secretPW}</SyInfoContent>
+          <SyInfoContent>{userInfo.email}</SyInfoContent>
         </SyInfo>
         <SyInfo>
           <SyLable>Name:</SyLable>
-          <SyInfoContent>햄식이</SyInfoContent>
+          <SyInfoContent>
+            {isonClickUpdateBtn ? (
+              userInfo.nickname
+            ) : (
+              <input type="text" value={changeName} onChange={(el) => setChangeName(el.target.value)} />
+            )}
+          </SyInfoContent>
         </SyInfo>
         <SyInfo>
           <SyLable>한줄 소개:</SyLable>
-          <SyInfoContent>요리조리</SyInfoContent>
+          <SyInfoContent>
+            {isonClickUpdateBtn ? (
+              userInfo.comment
+            ) : (
+              <input type="text" value={changeComment} onChange={(el) => setChangeComment(el.target.value)} />
+            )}
+          </SyInfoContent>
+        </SyInfo>
+        <SyInfo>
+          <SyInfoContent>
+            {!isonClickUpdateBtn ? (
+              <input type="file" ref={fileInputRef} onChange={(e) => handleFileInputChange(e.target.files)} />
+            ) : (
+              ''
+            )}
+          </SyInfoContent>
         </SyInfo>
       </SyInfoDiv>
-      <SyButton>수정</SyButton>
+      <SyButton onClick={() => onUpdateInfoBtn(userInfo.sub)}>{isonClickUpdateBtn ? '수정' : '완료'}</SyButton>
     </SyContainer>
   );
 };
@@ -42,7 +154,6 @@ const SyImageDiv = styled.div`
   position: absolute;
   top: 16%;
   left: 10%;
-  border: 1px solid black;
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -51,7 +162,9 @@ const SyImageDiv = styled.div`
   align-items: center;
 `;
 
-const SyImage = styled.img``;
+const SyImage = styled.img`
+  width: 100%;
+`;
 
 const SyInfoDiv = styled.div`
   position: absolute;
@@ -79,8 +192,8 @@ const SyInfoContent = styled.p`
 
 const SyButton = styled.button`
   position: absolute;
-  left: 14%;
-  bottom: 41%;
+  left: 15%;
+  bottom: 35%;
   width: 90px;
 
   padding: 10px 20px;
