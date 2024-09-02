@@ -75,9 +75,7 @@ const MyInfo = () => {
       cacheControl: '10',
       upsert: true
     });
-    console.log(data.path, 'dddd');
-    // const { data } = await supabase.storage.from('profile_img').upload(`avatar_${Date.now()}.png`, file);
-    // const { data: url } = supabase.storage.from('profile_img').getPublicUrl(data.path);
+
     setProfileUrl(`https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${data.path}`);
 
     // profiles 테이블에서 이미지 값 변경
