@@ -5,9 +5,7 @@ export const ProtectedRoute = () => {
   const {pathname} = useLocation();
   const {isSignIn} = useLoginContext();
 
-
-  if(!isSignIn) return <Navigate to="/login" replace state={{redirectedFrom: pathname,}}/>;
-
+  if (!isSignIn) return <Navigate to="/login" replace state={{ redirectedFrom: pathname }} />;
 
   return <Outlet />
 }
