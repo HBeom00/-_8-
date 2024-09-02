@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import WriteList from './WriteList';
 import { useState, useContext, useEffect } from 'react';
 import supabase from '../supabaseClient';
 import { useSearchParams, useNavigate } from 'react-router-dom';
@@ -7,12 +6,12 @@ import { PostContext } from '../context/store';
 
 const WriteFormContainer = () => {
   const [formData, setFormData] = useState({
-    storeName: '',
+    store_Name: '',
     image: null,
     address: '',
-    region: '',
-    rating: '',
-    review: ''
+    location: '',
+    star: '',
+    comment: ''
   });
   const navigate = useNavigate();
   const [originalFormData, setOriginalFormData] = useState({});
@@ -20,28 +19,30 @@ const WriteFormContainer = () => {
   const [param] = useSearchParams();
   const paramId = parseInt(param.get('id'));
 
-  // 수정시 데이터 불러오기
   useEffect(() => {
     if (paramId) {
       fetchPostData(paramId);
+    } else {
+      setOriginalFormData({ ...formData });
     }
   }, [paramId]);
 
-  // 기존 데이터 불러오는 함수
   const fetchPostData = async (id) => {
     try {
       const { data, error } = await supabase.from('store').select('*').eq('id', id).single();
 
       if (error) throw error;
 
-      setFormData({
-        storeName: data.store_name,
+      const fetchedData = {
+        store_Name: data.store_name,
         image: null,
         address: data.address,
         location: data.location,
         star: data.star,
-        review: data.comment
-      });
+        comment: data.comment
+      };
+      setFormData(fetchedData);
+      setOriginalFormData(fetchedData);
     } catch (error) {
       alert('게시글 불러오기 실패..');
     }
@@ -56,7 +57,6 @@ const WriteFormContainer = () => {
     setFormData((prevData) => ({ ...prevData, image: e.target.files[0] }));
   };
 
-  // 폼 유효성 검사 함수
   const validateForm = () => {
     for (const key in formData) {
       if (formData[key] === '' || formData[key] === null) {
@@ -67,7 +67,6 @@ const WriteFormContainer = () => {
     return true;
   };
 
-  // 데이터 변경 여부 확인 함수
   const isDataChanged = () => {
     return JSON.stringify(formData) !== JSON.stringify(originalFormData);
   };
@@ -93,7 +92,6 @@ const WriteFormContainer = () => {
       } = await supabase.auth.getUser();
       const userId = user.id;
 
-      // 이미지 업로드
       let imagePath = null;
 
       const storeFile = formData.image;
@@ -107,7 +105,6 @@ const WriteFormContainer = () => {
 
         if (uploadError) throw uploadError;
 
-        // 이미지 업로드 된 이미지의 공개 URL 가져오기
         const {
           data: { publicUrl },
           error: urlError
@@ -117,7 +114,6 @@ const WriteFormContainer = () => {
         imagePath = publicUrl;
       }
 
-      // 게시물 데이터 삽입
       const { data, error } = await supabase.from('store').insert({
         writer: userId,
         store_name: formData.storeName,
@@ -130,15 +126,6 @@ const WriteFormContainer = () => {
 
       if (error) throw error;
 
-      setFormData({
-        storeName: '',
-        image: null,
-        address: '',
-        region: '',
-        rating: '',
-        review: ''
-      });
-
       alert('게시물이 성공적으로 작성되었습니다!');
       navigate('/');
     } catch (error) {
@@ -147,7 +134,6 @@ const WriteFormContainer = () => {
     }
   };
 
-  // Data 수정
   async function updatePost(paramId) {
     try {
       const {
@@ -164,7 +150,6 @@ const WriteFormContainer = () => {
         comment: formData.review
       };
 
-      // 이미지 수정 로직
       if (formData.image) {
         const fileName = `public/${userId}_${paramId}.png`;
         const { data, error: uploadError } = await supabase.storage.from('store_img').upload(fileName, formData.image, {
@@ -174,7 +159,6 @@ const WriteFormContainer = () => {
 
         if (uploadError) throw uploadError;
 
-        //업로드된 이미지 공개 URL 가져오기
         const {
           data: { publicUrl },
           error: urlError
