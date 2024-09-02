@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
   const [info, setInfo] = useState({
     email: '',
     password: '',
