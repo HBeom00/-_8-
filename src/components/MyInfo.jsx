@@ -10,11 +10,9 @@ const MyInfo = () => {
   const [changeComment, setChangeComment] = useState('');
   const fileInputRef = useRef(null);
   const { profileUrl, setProfileUrl } = useContext(PostContext);
-  const randomNum = new Date().getTime();
 
   useEffect(() => {
     getInfo();
-    baseProfile();
   }, []);
 
   // 유저 정보 가져오기
@@ -57,16 +55,23 @@ const MyInfo = () => {
     });
   }
 
-  // 기본 프로필 설정
-  function baseProfile() {
-    // const { data } = supabase.storage.from('profile_img').getPublicUrl('default-profile.jpg');
+  // 프로필 이미지 설정
+  async function setProfile() {
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
 
-    setProfileUrl(
-      `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/public/heehee@naver.com/new_profile.png?date=${randomNum}`
-    );
+    // const { data, error } = await supabase.from('profiles').select('*').eq('id', id);
+
+    if (user.user_metadata.avatar_url === 'default.jpg') {
+      setProfile('https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/default.jpg');
+      return;
+    } else {
+      return profileUrl;
+    }
   }
 
-  // 프로필 수정
+  // input에서 이미지 파일 불러오기
   async function handleFileInputChange(files) {
     const [file] = files;
 
@@ -74,12 +79,10 @@ const MyInfo = () => {
       return;
     }
 
-    const { data } = await supabase.storage
-      .from('profile_img')
-      .upload(`public/${userInfo.email}/new_profile.png`, file, {
-        cacheControl: '0',
-        upsert: true
-      });
+    const { data } = await supabase.storage.from('profile_img').upload(`${userInfo.email}_${Date.now()}.png`, file, {
+      cacheControl: '3',
+      upsert: false
+    });
 
     setProfileUrl(`https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${data.path}`);
 
@@ -101,7 +104,7 @@ const MyInfo = () => {
   return (
     <SyContainer>
       <SyImageDiv>
-        <SyImage src={profileUrl} alt="사진" />
+        <SyImage src={setProfile()} alt="사진" />
       </SyImageDiv>
       <SyInfoDiv>
         <SyInfo>
@@ -203,3 +206,44 @@ const SyButton = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `;
+
+// // 기본 프로필 설정
+// function baseProfile() {
+//   // const { data } = supabase.storage.from('profile_img').getPublicUrl('default-profile.jpg');
+
+//   setProfileUrl(
+//     `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/public/heehee@naver.com/new_profile.png?date=${randomNum}`
+//   );
+// }
+
+// // 프로필 수정
+// async function handleFileInputChange(files) {
+//   const [file] = files;
+
+//   if (!file) {
+//     return;
+//   }
+
+//   const { data } = await supabase.storage
+//     .from('profile_img')
+//     .upload(`public/${userInfo.email}/new_profile.png`, file, {
+//       cacheControl: '0',
+//       upsert: true
+//     });
+
+//   setProfileUrl(`https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${data.path}`);
+
+//   // profiles 테이블에서 이미지 값 변경
+//   await supabase
+//     .from('profiles')
+//     .update({
+//       avatar_url: data.path
+//     })
+//     .eq('id', userInfo.sub)
+//     .select();
+
+//   // auth에서 이미지 값 변경
+//   await supabase.auth.updateUser({
+//     data: { avatar_url: data.path }
+//   });
+// }
