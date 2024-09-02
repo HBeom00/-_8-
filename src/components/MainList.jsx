@@ -9,33 +9,22 @@ const SyListBox = styled.ul`
   flex-wrap: wrap;
 `;
 
-const MainList = () => {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    getPosts();
-  }, []);
-
-  async function getPosts() {
-    const { data } = await supabase.from('store').select('*');
-    setPosts(data);
-  }
-
-  console.log(posts);
+const MainList = ({
+  posts,
+  handleSort = { handleSort },
+  handleSearch = { handleSearch },
+  setSearch = { setSearch },
+  search = { search }
+}) => {
   return (
     <div>
-      <MainListSort data={posts} />
-      <button
-        onClick={function () {
-          const newPost = posts.filter((list) => {
-            return list.location == '지역1';
-          });
-          console.log(newPost);
-          setPosts(newPost);
-        }}
-      >
-        솔트 정렬
-      </button>
+      <MainListSort
+        data={posts}
+        handleSort={handleSort}
+        handleSearch={handleSearch}
+        setSearch={setSearch}
+        search={search}
+      />
       맛집 리스트
       <SyListBox>
         {posts.map((list) => {
