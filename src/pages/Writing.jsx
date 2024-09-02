@@ -1,29 +1,15 @@
-import styled from 'styled-components';
 import WriteFormContainer from '../components/WriteFormContainer';
-import WriteSidebar from '../components/WriteSidebar';
-import WriteHeader from '../components/WriteHeader';
+import ContentBox from '../layout/ContentBox';
+import MainBox from '../layout/MainBox';
 
 const Writing = () => {
   return (
-    <SyPage>
-      <WriteSidebar />
-      <SyContainer>
-        <WriteHeader />
+    <ContentBox>
+      <MainBox>
         <WriteFormContainer />
-      </SyContainer>
-    </SyPage>
+      </MainBox>
+    </ContentBox>
   );
 };
 
 export default Writing;
-
-const SyPage = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
-
-const SyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
