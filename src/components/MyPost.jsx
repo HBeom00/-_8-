@@ -9,19 +9,18 @@ const MyPost = () => {
   const { posts, setPosts } = useContext(PostContext);
 
   useEffect(() => {
+    // DB data 가져오기
+    async function getPosts() {
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
+      const userId = user.id;
+      const { data } = await supabase.from('store').select().eq('writer', userId);
+
+      setPosts([...data]);
+    }
     getPosts();
-  }, []);
-
-  // DB data 가져오기
-  async function getPosts() {
-    const {
-      data: { user }
-    } = await supabase.auth.getUser();
-    const userId = user.id;
-    const { data } = await supabase.from('store').select().eq('writer', userId);
-
-    setPosts([...data]);
-  }
+  }, [setPosts]);
 
   // DB data 삭제
   async function ondeletePost(id) {
