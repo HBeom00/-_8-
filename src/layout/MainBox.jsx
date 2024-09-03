@@ -8,7 +8,6 @@ const MainBox = (props) => {
   const { isSignIn, checkSignIn } = useLoginContext();
   checkSignIn();
 
-  console.log(isSignIn);
   return (
     <SyContent>
       {isSignIn ? <ProtectedAside></ProtectedAside> : <Aside></Aside>}
@@ -21,13 +20,12 @@ const MainBox = (props) => {
 };
 
 const SyContent = styled.div`
+  position: relative;
   display: flex;
 `;
 const SyMainContent = styled.div`
-  padding-left: 25px;
   box-sizing: border-box;
   width: calc(100% - 250px);
-  overflow: hidden;
 `;
 
 export default MainBox;

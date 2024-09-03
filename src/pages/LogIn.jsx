@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoginContext } from '../context/LoginContext';
 
 import ContentBox2 from '../layout/ContentBox2';
+import Swal from 'sweetalert2';
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -36,7 +37,8 @@ const LogIn = () => {
       });
 
       if (error) {
-        alert('이메일과 패스워드를 다시 확인해주세요!');
+        Swal.fire('이메일/패스워드를 다시 확인해주세요!');
+
         throw error;
       }
 
@@ -49,62 +51,66 @@ const LogIn = () => {
   }
 
   return (
-    <div>
-      <ContentBox2>
-        <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
-        <ContainerBinding>
-          <LeftContainer>
-            <LeftTitleBoxs>
-              <LoginTitle>Hello, Friend!</LoginTitle>
-              <LoginSubTitle>
-                Enter your personal details <br />
-                and Start journey with us
-              </LoginSubTitle>
-            </LeftTitleBoxs>{' '}
+    <ContentBox2>
+      <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
+      <ContainerBinding>
+        <LeftContainer>
+          {/* <LeftTitleBoxs> */}
+          <LoginTitle>Welcome Back!</LoginTitle>
+          {/* </LeftTitleBoxs> */}{' '}
+          <LeftSubAndButtonBox>
+            <LoginSubTitle>Don't have account yet? Click below</LoginSubTitle>
             <LoginSignUpButton onClick={() => navigate('/signup')}>SIGN UP</LoginSignUpButton>
-          </LeftContainer>
-          <RightContainer>
-            <LoginContainer>
-              <RightTitleBoxs>
-                <LoginTitle>Log In</LoginTitle>
-                <LoginSubTitle>Login with Email</LoginSubTitle>
-              </RightTitleBoxs>
-              <InputBoxs>
-                <LoginInputForId
-                  type="text"
-                  value={info.email}
-                  onChange={(event) => {
-                    handleChangeInput(event, 'email');
-                  }}
-                  placeholder="Email"
-                />
-                <LoginInputForPassWord
-                  type="text"
-                  value={info.password}
-                  onChange={(event) => {
-                    handleChangeInput(event, 'password');
-                  }}
-                  placeholder="Password"
-                />
-              </InputBoxs>
-              <ButtonBoxs>
-                <LoginButtonn type="button" onClick={handleAddInfo}>
-                  LOG IN
-                </LoginButtonn>
-              </ButtonBoxs>
-            </LoginContainer>
-          </RightContainer>
-        </ContainerBinding>
-      </ContentBox2>
-    </div>
+          </LeftSubAndButtonBox>
+        </LeftContainer>
+        <RightContainer>
+          <LoginContainer>
+            <RightTitleBoxs>
+              <LoginTitle>Log In</LoginTitle>
+              <LoginSubTitle>Login with Email</LoginSubTitle>
+            </RightTitleBoxs>
+            <InputBoxs>
+              <LoginInputForId
+                type="text"
+                value={info.email}
+                onChange={(event) => {
+                  handleChangeInput(event, 'email');
+                }}
+                placeholder="Email"
+              />
+              <LoginInputForPassWord
+                type="password"
+                value={info.password}
+                onChange={(event) => {
+                  handleChangeInput(event, 'password');
+                }}
+                placeholder="Password"
+              />
+            </InputBoxs>
+            <ButtonBoxs>
+              <LoginButtonn type="button" onClick={handleAddInfo}>
+                LOG IN
+              </LoginButtonn>
+            </ButtonBoxs>
+          </LoginContainer>
+        </RightContainer>
+      </ContainerBinding>
+    </ContentBox2>
   );
 };
 
 export default LogIn;
 
 const GotoBackbutton = styled.button`
-  width: 60px;
-  height: 30px; //나중에 header에 넣어주면 될것같음
+  width: 70px;
+  height: 40px; //나중에 header에 넣어주면 될것같음
+  position: absolute;
+  top: 15%;
+  right: 16%;
+  border-radius: 2rem;
+  font-size: 15px;
+  cursor: pointer;
+  border: 2px solid black;
 `;
 
 const ContainerBinding = styled.div`
@@ -112,19 +118,19 @@ const ContainerBinding = styled.div`
 `;
 
 const LeftContainer = styled.div`
-  width: 400px;
-  background-color: yellow;
+  width: 430px;
+  background-color: #ffe31d;
   display: flex; /* Flexbox 사용 */
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
 `;
 
 const RightContainer = styled.div`
-  width: 630px;
+  width: 600px;
   height: 580px;
   display: flex; /* Flexbox 사용 */
   justify-content: center;
@@ -139,12 +145,12 @@ const LoginContainer = styled.div`
   justify-content: space-evenly;
 `;
 
-const LeftTitleBoxs = styled.h1`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-`;
+// const LeftTitleBoxs = styled.h1`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 20px;
+// `;
 
 const RightTitleBoxs = styled.h1`
   display: flex;
@@ -164,6 +170,8 @@ const LoginSubTitle = styled.h1`
   color: gray;
   font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-weight: 400;
+  line-height: 30px;
+  text-align: center;
 `;
 
 const InputBoxs = styled.div`
@@ -203,12 +211,22 @@ const LoginSignUpButton = styled.button`
   border-radius: 50px;
   font-size: 15px;
   background-color: transparent;
+  cursor: pointer;
+  border: 2px solid black;
 `;
 const LoginButtonn = styled.button`
   width: 200px;
   height: 50px;
   border-radius: 50px;
   font-size: 15px;
-  background-color: yellow;
+  background-color: #ffe31d;
   border: none;
+  cursor: pointer;
+`;
+
+const LeftSubAndButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 `;

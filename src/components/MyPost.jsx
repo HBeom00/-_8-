@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { PostContext } from '../context/MypageContext';
+import Swal from 'sweetalert2';
 
 const MyPost = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const MyPost = () => {
     const filterPost = posts.filter((post) => post.id !== deletedPost.id);
 
     setPosts(filterPost);
+    Swal.fire('삭제되었습니다.');
   }
 
   return (
@@ -38,18 +40,35 @@ const MyPost = () => {
         .sort((a, b) => b.id - a.id)
         .map((el) => {
           return (
-            <SyPostCard key={el.id}>
+            <SyPostCard key={el.id} onClick={() => navigate(`/detail?id=${el.id}`)}>
               <SyProfileDiv>
                 <SyProfileImg src={el.img_path} alt="food_img" />
               </SyProfileDiv>
-              <SyContentDiv>
-                <div>상호명: {el.store_name}</div>
-                <div>주소: {el.address}</div>
-              </SyContentDiv>
-              <div>
-                <SyButton onClick={() => navigate(`/writing?id=${el.id}`)}>수정</SyButton>
-                <SyButton onClick={() => ondeletePost(el.id)}>삭제</SyButton>
-              </div>
+              <SyContentDivv style={{ display: 'flex', flexDirection: 'column' }}>
+                <SyContentDiv>
+                  <div>상표: {el.store_name}</div>
+                  <div>주소: {el.address}</div>
+                  <div>별점: {'⭐'.repeat(parseInt(el.star))}</div>
+                </SyContentDiv>
+                <SyBtnDiv>
+                  <SyButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/writing?id=${el.id}`);
+                    }}
+                  >
+                    수정
+                  </SyButton>
+                  <SyButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      ondeletePost(el.id);
+                    }}
+                  >
+                    삭제
+                  </SyButton>
+                </SyBtnDiv>
+              </SyContentDivv>
             </SyPostCard>
           );
         })}
@@ -68,44 +87,70 @@ const SyWrapper = styled.div`
   overflow-y: auto;
   /* Custom Scrollbar Styling */
   &::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(220, 20, 60); /* 스크롤바 색상 */
+    background: #ccc; /* 스크롤바 색상 */
     border-radius: 10px; /* 스크롤바 둥근 테두리 */
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(220, 20, 60, 0.1); /*스크롤바 뒷 배경 색상*/
   }
 `;
 const SyPostCard = styled.div`
   border-radius: 12px;
   border: 1px solid black;
-  width: 44%;
-  height: 46%;
+  width: 46%;
+  height: 64%;
+  cursor: pointer;
 `;
 
 const SyProfileDiv = styled.div`
-  width: 100%;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 60%;
+  overflow: hidden;
 `;
 
 const SyProfileImg = styled.img`
-  width: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px 12px 0 0;
+  object-fit: cover;
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.4s ease-in-out;
+  }
+`;
+
+const SyContentDivv = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  padding: 20px;
 `;
 
 const SyContentDiv = styled.div`
-  line-height: 20px;
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
-const SyButton = styled.button``;
+const SyBtnDiv = styled.div`
+  display: flex;
+  justify-content: right;
+  gap: 10px;
+`;
+
+const SyButton = styled.button`
+  width: 60px;
+  padding: 5px 0;
+  background-color: #ffe31d;
+  color: black;
+  font-size: 16px;
+  font-weight: 900;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    transition: transform 0.2s ease-in-out;
+    transform: scale(1.1);
+  }
+`;

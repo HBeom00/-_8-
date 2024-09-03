@@ -23,7 +23,7 @@ const Header = () => {
 };
 
 const SyHeader = styled.header`
-  height: 50px;
+  height: 30px;
   padding: 20px 0;
   display: flex;
   justify-content: space-between;

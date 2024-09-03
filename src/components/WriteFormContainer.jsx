@@ -213,7 +213,7 @@ const WriteFormContainer = () => {
       setPosts(updatedList);
 
       alert('게시물이 성공적으로 수정되었습니다!');
-      navigate('/');
+      navigate('/mypage');
     } catch (error) {
       console.error('게시물 수정 중 오류 발생', error.message);
       alert('게시물 수정 중 오류 발생...');
@@ -295,9 +295,8 @@ export default WriteFormContainer;
 
 const SyFormContainer = styled.div`
   background-color: #fffef0;
-  /* border: 1px solid #000000; */
-  width: 1030px;
-  height: 587px;
+  width: 100%;
+  height: 100%;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -342,7 +341,7 @@ const SyInput = styled.div`
   select,
   textarea {
     padding: 8px;
-    border: 1px solid rgb(204 204 204);
+    border: 2px solid rgb(204 204 204);
     border-radius: 8px;
     background-color: white;
     &:focus {
@@ -361,8 +360,8 @@ const SyButtonContainer = styled.div`
     padding: 10px 20px;
     background-color: #ffe31d;
     color: #000000;
-    border: 3px solid #000000;
-    border-radius: 10px;
+    border: 2px solid #000000;
+    border-radius: 40px;
     cursor: pointer;
     transition: transform 0.3s ease;
     font-size: 16px;

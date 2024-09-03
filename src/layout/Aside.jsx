@@ -7,7 +7,7 @@ const Aside = () => {
   return (
     <SySide>
       <SyBtn onClick={() => navigate('/login')}>Login</SyBtn>
-      <SyBtn onClick={() => navigate('/signUp')}>Join</SyBtn>
+      <SyBtn onClick={() => navigate('/signUp')}>signUp</SyBtn>
       <SyBtn onClick={() => navigate('/')}>Home</SyBtn>
       <SyBtn onClick={() => navigate('/mypage')}>내 게시글</SyBtn>
     </SySide>
@@ -20,8 +20,7 @@ const SySide = styled.aside`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid #ccc;
-  margin: 20px 0;
+  background: #ffe31d;
 `;
 
 const SyBtn = styled.button`
@@ -31,9 +30,10 @@ const SyBtn = styled.button`
   width: 150px;
   margin-bottom: 20px;
   border-radius: 8px;
-  border: 1px solid #666;
+  border: 2px solid #000;
+  background: #ffe31d;
   &:hover {
-    background: #ffe31d;
+    background: #fff;
   }
 `;
 export default Aside;

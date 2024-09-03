@@ -8,6 +8,7 @@ const MainList = () => {
   const [posts, setPosts] = useState([]);
   const [sortData, setSorte] = useState([]);
   const [search, setSearch] = useState('');
+  const [initialData, setinit] = useState([]);
 
   useEffect(() => {
     getPosts();
@@ -17,22 +18,18 @@ const MainList = () => {
     const { data } = await supabase.from('store').select('*');
     setSorte(data);
     setPosts(data);
+    setinit(data);
   }
 
   const handleSearch = () => {
     const searchData = sortData.filter((list) => {
       return list.store_name.includes(search);
-      // return list.store_name == search;
     });
-    console.log(searchData);
     if (search == '') {
       alert('검색어를 입력 해주세요!');
-    } else if (searchData.length == 0) {
-      alert('일치하는 검색어가 없습니다');
     } else {
       setPosts([...searchData]);
     }
-    // setPosts([...searchData]);
   };
 
   const handleSort = function (location) {
@@ -51,9 +48,22 @@ const MainList = () => {
         search={search}
       />
       <SyListBox>
-        {posts.map((list) => {
-          return <MainItem key={list.id} data={list} />;
-        })}
+        {posts.length == 0 ? (
+          <SyNoDataBox>
+            <p>결과가 없습니다</p>
+            <button
+              onClick={() => {
+                setPosts(initialData);
+              }}
+            >
+              돌아가기
+            </button>
+          </SyNoDataBox>
+        ) : (
+          posts.map((list) => {
+            return <MainItem key={list.id} data={list} />;
+          })
+        )}
       </SyListBox>
     </SyscrollBox>
   );
@@ -62,20 +72,42 @@ const MainList = () => {
 const SyListBox = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  margin: 20px 0 50px;
+  margin: 20px 0 0;
+  padding-left: 20px;
 `;
 
 const SyscrollBox = styled.div`
+  width: 1000px;
   padding-right: 5px;
-  height: 100%;
+  height: calc(100% - 90px);
   overflow-x: hidden;
-  position: relative;
   &::-webkit-scrollbar {
     width: 4px;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 2px;
     background: #ccc;
+  }
+`;
+
+const SyNoDataBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 200px 0;
+  p {
+    margin-bottom: 80px;
+    font-size: 36px;
+    font-weight: 600;
+  }
+  button {
+    width: 150px;
+    background: #ffe31d;
+    padding: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #666;
   }
 `;
 
