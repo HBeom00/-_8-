@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { PostContext } from '../context/store';
+import { PostContext } from '../context/MypageContext';
 
 const MyInfo = () => {
   const [userInfo, setUserInfo] = useState([]);
@@ -10,21 +10,21 @@ const MyInfo = () => {
   const [changeComment, setChangeComment] = useState('');
   const fileInputRef = useRef(null);
   const { profileUrl, setProfileUrl } = useContext(PostContext);
-  const randomNum = new Date().getTime();
 
   useEffect(() => {
+    // 유저 정보 가져오기
+    async function getInfo() {
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
+
+      setUserInfo(user.user_metadata);
+      setProfileUrl(
+        `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${user.user_metadata.avatar_url}`
+      );
+    }
     getInfo();
-    baseProfile();
-  }, []);
-
-  // 유저 정보 가져오기
-  async function getInfo() {
-    const {
-      data: { user }
-    } = await supabase.auth.getUser();
-
-    setUserInfo(user.user_metadata);
-  }
+  }, [setProfileUrl]);
 
   // 수정 버튼 클릭시 불린값 변경
   const onUpdateInfoBtn = async (id) => {
@@ -33,7 +33,14 @@ const MyInfo = () => {
         alert('내용을 입력해주세요.');
         return;
       }
-      updatePost(id);
+      const updateSuccess = await updatePost(id);
+
+      if (updateSuccess) {
+        // 업데이트가 성공적으로 완료되면 페이지 새로고침
+        window.location.reload();
+      } else {
+        alert('업데이트에 실패했습니다. 다시 시도해주세요.');
+      }
     }
 
     setIsonClickUpdateBtn((prev) => !prev);
@@ -41,32 +48,29 @@ const MyInfo = () => {
 
   // 유저 정보 수정
   async function updatePost(id) {
-    // profiles 테이블 정보 수정
-    await supabase
-      .from('profiles')
-      .update({
-        nickname: changeName,
-        comment: changeComment
-      })
-      .eq('id', id)
-      .select();
+    try {
+      // profiles 테이블 정보 수정
+      await supabase
+        .from('profiles')
+        .update({
+          nickname: changeName,
+          comment: changeComment
+        })
+        .eq('id', id)
+        .select();
 
-    // auth 정보 수정
-    await supabase.auth.updateUser({
-      data: { nickname: changeName, comment: changeComment }
-    });
+      // auth 정보 수정
+      await supabase.auth.updateUser({
+        data: { nickname: changeName, comment: changeComment }
+      });
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
 
-  // 기본 프로필 설정
-  function baseProfile() {
-    // const { data } = supabase.storage.from('profile_img').getPublicUrl('default-profile.jpg');
-
-    setProfileUrl(
-      `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/public/heehee@naver.com/new_profile.png?date=${randomNum}`
-    );
-  }
-
-  // 프로필 수정
+  // input에서 이미지 파일 불러오기
   async function handleFileInputChange(files) {
     const [file] = files;
 
@@ -74,12 +78,10 @@ const MyInfo = () => {
       return;
     }
 
-    const { data } = await supabase.storage
-      .from('profile_img')
-      .upload(`public/${userInfo.email}/new_profile.png`, file, {
-        cacheControl: '0',
-        upsert: true
-      });
+    const { data } = await supabase.storage.from('profile_img').upload(`${userInfo.email}_${Date.now()}.png`, file, {
+      cacheControl: '3',
+      upsert: false
+    });
 
     setProfileUrl(`https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${data.path}`);
 
@@ -152,9 +154,9 @@ const SyContainer = styled.div`
 
 const SyImageDiv = styled.div`
   position: absolute;
-  top: 16%;
+  top: 25%;
   left: 10%;
-  width: 150px;
+  width: 240px;
   height: 150px;
   border-radius: 50%;
   display: flex;
@@ -164,13 +166,16 @@ const SyImageDiv = styled.div`
 
 const SyImage = styled.img`
   width: 100%;
+  border-radius: 50%;
 `;
 
 const SyInfoDiv = styled.div`
   position: absolute;
-  top: 20%;
-  left: 40%;
-  width: 300px;
+  top: 27%;
+  left: 47%;
+  width: 340px;
+  font-size: 20px;
+  font-weight: 900;
 `;
 
 const SyInfo = styled.div`
@@ -192,10 +197,9 @@ const SyInfoContent = styled.p`
 
 const SyButton = styled.button`
   position: absolute;
-  left: 15%;
-  bottom: 35%;
+  left: 18%;
+  bottom: 33%;
   width: 90px;
-
   padding: 10px 20px;
   background-color: #007bff;
   color: white;

@@ -9,31 +9,40 @@ const Mypage = () => {
   const navigate = useNavigate();
 
   return (
-    <SyWrapper>
-      <SyTitle>My Page</SyTitle>
-      <SyContainer>
-        <SyButtonDiv>
-          <SyButton className="info" onClick={() => setIsSelect('myinfo')}>
-            내 정보
-          </SyButton>
-          <SyButton className="post" onClick={() => setIsSelect('mypost')}>
-            내 게시글
-          </SyButton>
-        </SyButtonDiv>
-        <SyPost>{isSelect === 'myinfo' ? <MyInfo /> : <MyPost />}</SyPost>
-      </SyContainer>
-      <SyButton className="back-button" onClick={() => navigate(-1)}>
-        back
-      </SyButton>
-    </SyWrapper>
+    <SyDiv>
+      <SyWrapper>
+        <SyTitle>My Page</SyTitle>
+        <SyContainer>
+          <SyButtonDiv>
+            <SyButton className="info" onClick={() => setIsSelect('myinfo')}>
+              내 정보
+            </SyButton>
+            <SyButton className="post" onClick={() => setIsSelect('mypost')}>
+              내 게시글
+            </SyButton>
+          </SyButtonDiv>
+          <SyPost>{isSelect === 'myinfo' ? <MyInfo /> : <MyPost />}</SyPost>
+        </SyContainer>
+        <SyButton className="back-button" onClick={() => navigate(-1)}>
+          back
+        </SyButton>
+      </SyWrapper>
+    </SyDiv>
   );
 };
 
 export default Mypage;
 
+const SyDiv = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SyWrapper = styled.div`
-  width: 55%;
-  height: 70%;
+  width: 1280px;
+  height: 720px;
   border: 1px solid black;
   border-radius: 8px;
   background-color: #dfdfdf;
@@ -42,7 +51,7 @@ const SyWrapper = styled.div`
 const SyTitle = styled.p`
   height: 10%;
   text-align: center;
-  font-size: 24px;
+  font-size: 36px;
   font-weight: 900;
 `;
 
@@ -63,6 +72,7 @@ const SyPost = styled.div`
 `;
 
 const SyButton = styled.div`
+  font-size: 24px;
   padding: 12px;
   font-weight: 900;
   cursor: pointer;
@@ -70,20 +80,20 @@ const SyButton = styled.div`
     width: 30%;
     text-align: center;
     position: absolute;
-    top: 17%;
+    top: 20%;
     right: 10%;
   }
   &.post {
     width: 35%;
     text-align: center;
     position: absolute;
-    top: 30%;
+    top: 35%;
     right: 10%;
   }
   &.back-button {
     position: absolute;
-    top: 4%;
-    right: 4%;
+    top: 0%;
+    right: 0%;
     font-size: 20px;
   }
   &:hover {

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import supabase from '../supabaseClient';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { PostContext } from '../context/store';
+import { PostContext } from '../context/MypageContext';
 
 const WriteFormContainer = () => {
   const [formData, setFormData] = useState({

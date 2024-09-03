@@ -1,8 +1,8 @@
 import Router from './router/Router';
 import './reset.css';
 import GlobalStyles from './GlobalStyles';
-import PostProvider from './context/store';
 import LoginProvider from './context/LoginContext';
+import PostProvider from './context/MypageContext';
 
 const App = () => {
   return (
