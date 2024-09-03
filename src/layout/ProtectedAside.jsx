@@ -8,35 +8,33 @@ import { PostContext } from '../context/MypageContext';
 const Aside = () => {
   const navigate = useNavigate();
   const { logOut } = useLoginContext();
+  const [userInfo, setUserInfo] = useState([]);
   const { profileUrl, setProfileUrl } = useContext(PostContext);
 
-  const [userInfo, setUserInfo] = useState([]);
-
   useEffect(() => {
-    // 유저 정보 가져오기
-    async function getInfo() {
-      const {
-        data: { user }
-      } = await supabase.auth.getUser();
-
-      setUserInfo(user.user_metadata);
-      setProfileUrl(
-        `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${user.user_metadata.avatar_url}`
-      );
-    }
     getInfo();
   }, [setProfileUrl]);
 
+  async function getInfo() {
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
+    setProfileUrl(
+      `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${user.user_metadata.avatar_url}`
+    );
+    setUserInfo(user.user_metadata);
+  }
+  console.log(profileUrl);
   return (
     <SySide>
       <SyUserImgBox>
-        <SyUserImg src={profileUrl} alt="유저 프로필" />
+        <SyUserImg src={profileUrl} alt={userInfo.nickname} />
       </SyUserImgBox>
       <SyUserName>닉네임: {userInfo.nickname}</SyUserName>
+      <SyUserText>{userInfo.comment}</SyUserText>
       <SyBtn onClick={() => logOut()}>LogOut</SyBtn>
       <SyBtn onClick={() => navigate('/mypage')}>My Page</SyBtn>
       <SyBtn onClick={() => navigate('/')}>Home</SyBtn>
-      <SyBtn onClick={() => navigate('/mypage')}>내 게시글</SyBtn>
     </SySide>
   );
 };
@@ -47,6 +45,7 @@ const SySide = styled.aside`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #ffe31d;
 `;
 
 const SyUserImgBox = styled.div`
@@ -55,18 +54,28 @@ const SyUserImgBox = styled.div`
   position: relative;
   overflow: hidden;
   border-radius: 50%;
-  background: #ffe31d;
 `;
 const SyUserName = styled.strong`
   font-size: 18px;
   display: block;
-  margin: 20px 0 50px;
+  margin-top: 20px;
   font-weight: 700;
+`;
+const SyUserText = styled.p`
+  margin: 10px 0 50px;
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 const SyUserImg = styled.img`
   position: absolute;
   width: 100%;
-  height: 100%;
   top: 0;
   bottom: 0;
 `;
@@ -78,9 +87,10 @@ const SyBtn = styled.button`
   width: 150px;
   margin-bottom: 20px;
   border-radius: 8px;
-  border: 1px solid #666;
+  border: 2px solid #000;
+  background: #ffe31d;
   &:hover {
-    background: #ffe31d;
+    background: #fff;
   }
 `;
 

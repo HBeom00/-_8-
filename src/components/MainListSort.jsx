@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import searchImg from '../assets/icon_search.svg';
 
 const SyBtnBox = styled.div`
   display: flex;
@@ -7,6 +8,12 @@ const SyBtnBox = styled.div`
 `;
 const MainListSort = ({ search, setSearch, handleSort, handleSearch }) => {
   const navigate = useNavigate();
+
+  const activeEnter = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   const sortData = [
     {
@@ -54,11 +61,18 @@ const MainListSort = ({ search, setSearch, handleSort, handleSearch }) => {
           onChange={(e) => {
             setSearch(e.target.value);
           }}
+          onKeyDown={(e) => {
+            activeEnter(e);
+          }}
           placeholder="검색어를 입력해주세요"
         />
-        <SyBtnSearch onClick={handleSearch}>검색하기</SyBtnSearch>
+        <SyBtnSearch onClick={handleSearch}>
+          <span className="hidden">검색하기</span>
+        </SyBtnSearch>
       </SyInpuBox>
-      <SyBtnAdd onClick={() => navigate('/Writing')}>추가하기</SyBtnAdd>
+      <SyBtnAdd onClick={() => navigate('/Writing')}>
+        <span className="hidden">추가하기</span>
+      </SyBtnAdd>
     </SyBtnBox>
   );
 };
@@ -83,22 +97,59 @@ const SyBtnSearch = styled.button`
   position: absolute;
   top: 0;
   right: 0;
-  width: 20px;
+  width: 30px;
   height: 100%;
   border: none;
-  background: none;
+  background: url(${searchImg}) no-repeat center;
+  background-size: 20px 20px;
+  .hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: polygon(0 0, 0 0, 0 0);
+  }
 `;
 
 const SyBtnAdd = styled.button`
-  position: fixed;
-  bottom: 220px;
-  right: 100px;
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
   width: 50px;
   height: 50px;
-  background: #fff;
-  border: 1px solid #ccc;
+  background: #ffe31d;
+  border: none;
   border-radius: 50%;
   z-index: 10;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 1px;
+    background-color: #222;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 10px;
+    background-color: #222;
+  }
+  .hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: polygon(0 0, 0 0, 0 0);
+  }
 `;
 
 const SyBtnSort = styled.button`
