@@ -53,7 +53,8 @@ const SignUp = () => {
   }
 
   return (
-    <div>
+    
+    <StPageContainer>
       <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
       <div
         type="img"
@@ -108,11 +109,15 @@ const SignUp = () => {
           </LoginSignUpButton>
         </ButtonBoxs>
       </LoginContainer>
-    </div>
+    </StPageContainer>
   );
 };
 
 export default SignUp;
+
+const StPageContainer = styled.div`
+  height: 100vh;
+`;
 
 const GotoBackbutton = styled.button`
   width: 60px;
