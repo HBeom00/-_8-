@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ContentBox2 from '../layout/ContentBox2';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -53,123 +54,213 @@ const SignUp = () => {
   }
 
   return (
-    
-    <StPageContainer>
+    <ContentBox2>
       <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
-      <div
-        type="img"
-        value={info.img}
-        onChange={(event) => {
-          handleChangeInput(event, 'img');
-        }}
-      >
-        사진들어감
-      </div>
-      <LoginContainer>
-        <div>
-          <LoginTitle>Sign up</LoginTitle>
-        </div>
-        <InputBoxs>
-          <LoginInputForId
-            type="text"
-            value={info.email}
-            onChange={(event) => {
-              handleChangeInput(event, 'email');
-            }}
-            placeholder="Email"
-          />
-          <LoginInputForPassWord
-            type="text"
-            value={info.password}
-            onChange={(event) => {
-              handleChangeInput(event, 'password');
-            }}
-            placeholder="Password"
-          />
-          <LoginInputForNickName
-            type="text"
-            value={info.nickname}
-            onChange={(event) => {
-              handleChangeInput(event, 'nickname');
-            }}
-            placeholder="Nickname"
-          />
-          <LoginInputForIntroduction
-            type="text"
-            value={info.introduction}
-            onChange={(event) => {
-              handleChangeInput(event, 'introduction');
-            }}
-            placeholder="Introduce yourself"
-          />
-        </InputBoxs>
-        <ButtonBoxs>
-          <LoginSignUpButton type="button" onClick={handleAddInfo}>
-            Sign up
-          </LoginSignUpButton>
-        </ButtonBoxs>
-      </LoginContainer>
-    </StPageContainer>
+      <ContainerBinding>
+        <LeftContainer>
+          <LoginContainer>
+            <LeftTitleBoxs>
+              <LoginTitle>Sign up</LoginTitle>
+            </LeftTitleBoxs>
+            <InputBoxs>
+              <LoginInputForId
+                type="text"
+                value={info.email}
+                onChange={(event) => {
+                  handleChangeInput(event, 'email');
+                }}
+                placeholder="Email"
+              />
+              <LoginInputForPassWord
+                type="text"
+                value={info.password}
+                onChange={(event) => {
+                  handleChangeInput(event, 'password');
+                }}
+                placeholder="Password"
+              />
+              <LoginInputForNickName
+                type="text"
+                value={info.nickname}
+                onChange={(event) => {
+                  handleChangeInput(event, 'nickname');
+                }}
+                placeholder="Nickname"
+              />
+              <LoginInputForIntroduction
+                type="text"
+                value={info.introduction}
+                onChange={(event) => {
+                  handleChangeInput(event, 'introduction');
+                }}
+                placeholder="Introduce yourself"
+              />
+            </InputBoxs>
+            <ButtonBoxs>
+              <LoginSignUpButton type="button" onClick={handleAddInfo}>
+                Sign up
+              </LoginSignUpButton>
+            </ButtonBoxs>
+          </LoginContainer>
+        </LeftContainer>
+        <RightContainer>
+          <RightTitleBoxs>
+            <LoginTitle>Hello, Friend!</LoginTitle>
+          </RightTitleBoxs>
+          <RightSubAndButtonBox>
+            <LoginSubTitle>Have you registerd? Click below</LoginSubTitle>
+            <LoginButton onClick={() => navigate('/login')}>Log In</LoginButton>
+          </RightSubAndButtonBox>
+        </RightContainer>
+      </ContainerBinding>
+    </ContentBox2>
   );
 };
 
 export default SignUp;
 
-const StPageContainer = styled.div`
-  height: 100vh;
+const GotoBackbutton = styled.button`
+  width: 70px;
+  height: 40px; //나중에 header에 넣어주면 될것같음
+  position: absolute;
+  top: 15%;
+  right: 16%;
+  border-radius: 2rem;
+  font-size: 15px;
+  cursor: pointer;
+  border: 2px solid black;
 `;
 
-const GotoBackbutton = styled.button`
-  width: 60px;
-  height: 30px;
+const ContainerBinding = styled.div`
+  display: flex;
+`;
+const RightContainer = styled.div`
+  width: 430px;
+  background-color: #ffe31d;
+  display: flex; /* Flexbox 사용 */
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+`;
+
+const LeftContainer = styled.div`
+  width: 600px;
+  height: 580px;
+  display: flex; /* Flexbox 사용 */
+  justify-content: center;
+  background-color: white;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 `;
 
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+`;
 
-  background-color: green;
-  gap: 40px;
-  width: 308px;
+const RightTitleBoxs = styled.h1`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+`;
+
+const LeftTitleBoxs = styled.h1`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 `;
 
 const LoginTitle = styled.h1`
   font-size: 50px;
+  font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 700;
+`;
+
+const LoginSubTitle = styled.h1`
+  font-size: 18px;
+  color: gray;
+  font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: center;
 `;
 
 const InputBoxs = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
 `;
 
 const ButtonBoxs = styled.div`
   display: flex;
   gap: 10px;
   justify-content: flex-end;
+  flex-direction: column;
   width: 308px;
+  align-items: center;
 `;
 
 const LoginInputForId = styled.input`
   width: 300px;
-  height: 30px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #f5f4f1;
+  border: none;
 `;
 const LoginInputForPassWord = styled.input`
   width: 300px;
-  height: 30px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #f5f4f1;
+  border: none;
 `;
 
 const LoginInputForNickName = styled.input`
   width: 300px;
-  height: 30px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #f5f4f1;
+  border: none;
 `;
 
 const LoginInputForIntroduction = styled.input`
   width: 300px;
-  height: 30px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #f5f4f1;
+  border: none;
 `;
 
 const LoginSignUpButton = styled.button`
-  width: 100px;
-  height: 30px;
+  width: 200px;
+  height: 50px;
+  border-radius: 50px;
+  font-size: 15px;
+  background-color: #ffe31d;
+  border: none;
+  cursor: pointer;
+`;
+
+const LoginButton = styled.button`
+  width: 200px;
+  height: 50px;
+  border-radius: 50px;
+  font-size: 15px;
+  background-color: transparent;
+  cursor: pointer;
+  border: 2px solid black;
+`;
+
+const RightSubAndButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 `;
