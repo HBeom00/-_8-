@@ -38,18 +38,35 @@ const MyPost = () => {
         .sort((a, b) => b.id - a.id)
         .map((el) => {
           return (
-            <SyPostCard key={el.id}>
+            <SyPostCard key={el.id} onClick={() => navigate(`/detail?id=${el.id}`)}>
               <SyProfileDiv>
                 <SyProfileImg src={el.img_path} alt="food_img" />
               </SyProfileDiv>
-              <SyContentDiv>
-                <div>상호명: {el.store_name}</div>
-                <div>주소: {el.address}</div>
-              </SyContentDiv>
-              <div>
-                <SyButton onClick={() => navigate(`/writing?id=${el.id}`)}>수정</SyButton>
-                <SyButton onClick={() => ondeletePost(el.id)}>삭제</SyButton>
-              </div>
+              <SyContentDivv style={{ display: 'flex', flexDirection: 'column' }}>
+                <SyContentDiv>
+                  <div>상표: {el.store_name}</div>
+                  <div>주소: {el.address}</div>
+                  <div>별점: {'⭐'.repeat(parseInt(el.star))}</div>
+                </SyContentDiv>
+                <SyBtnDiv>
+                  <SyButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/writing?id=${el.id}`);
+                    }}
+                  >
+                    수정
+                  </SyButton>
+                  <SyButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      ondeletePost(el.id);
+                    }}
+                  >
+                    삭제
+                  </SyButton>
+                </SyBtnDiv>
+              </SyContentDivv>
             </SyPostCard>
           );
         })}
@@ -68,44 +85,65 @@ const SyWrapper = styled.div`
   overflow-y: auto;
   /* Custom Scrollbar Styling */
   &::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(220, 20, 60); /* 스크롤바 색상 */
+    background: #ccc; /* 스크롤바 색상 */
     border-radius: 10px; /* 스크롤바 둥근 테두리 */
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(220, 20, 60, 0.1); /*스크롤바 뒷 배경 색상*/
   }
 `;
 const SyPostCard = styled.div`
   border-radius: 12px;
   border: 1px solid black;
-  width: 44%;
+  width: 46%;
   height: 46%;
+  display: flex;
+  cursor: pointer;
 `;
 
-const SyProfileDiv = styled.div`
-  width: 100%;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const SyProfileDiv = styled.div``;
 
 const SyProfileImg = styled.img`
-  width: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px 0 0 12px;
+`;
+
+const SyContentDivv = styled.div`
+  background-color: #fffbc8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0 12px 12px 0;
 `;
 
 const SyContentDiv = styled.div`
-  line-height: 20px;
   font-size: 20px;
+  margin-bottom: 20px;
+  & > div {
+    margin-bottom: 12px;
+  }
 `;
 
-const SyButton = styled.button``;
+const SyBtnDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+`;
+
+const SyButton = styled.button`
+  width: 60px;
+  padding: 5px 0;
+  background-color: #ffd700;
+  color: black;
+  font-size: 16px;
+  font-weight: 900;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    transition: transform 0.2s ease-in-out;
+    transform: scale(1.1);
+  }
+`;

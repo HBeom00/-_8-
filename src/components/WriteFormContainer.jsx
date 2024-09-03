@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import supabase from '../supabaseClient';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { PostContext } from '../context/MypageContext';
+import Swal from 'sweetalert2';
 
 const WriteFormContainer = () => {
   const [formData, setFormData] = useState({
@@ -61,7 +62,14 @@ const WriteFormContainer = () => {
     const requiredFields = ['store_name', 'address', 'location', 'star', 'comment'];
     for (const field of requiredFields) {
       if (formData[field] === '') {
-        alert(`${field} 부분을 입력해주세요`);
+        Swal.fire({
+          title: '□ 빈칸 채우기',
+          text: `${field} 부분을 입력해주세요`,
+          imageUrl: '/images/Todo.jpg',
+          imageWidth: 200,
+          imageHeight: 200,
+          imageAlt: 'Custom image'
+        });
         return false;
       }
     }
@@ -82,7 +90,14 @@ const WriteFormContainer = () => {
 
     if (paramId) {
       if (!isDataChanged()) {
-        alert('수정된 부분이 없습니다!');
+        Swal.fire({
+          title: '수정된 부분이 없습니다!',
+          text: '조금이라도 수정해야...됩니다',
+          imageUrl: '/images/no.jpg',
+          imageWidth: 200,
+          imageHeight: 200,
+          imageAlt: 'Custom image'
+        });
         return;
       }
       updatePost(paramId);
@@ -103,7 +118,14 @@ const WriteFormContainer = () => {
 
       // 이미지 유효성 검사
       if (!formData.image) {
-        alert('이미지를 반드시 업로드해야 합니다.');
+        Swal.fire({
+          title: '이미지를 반드시 업로드해야 합니다!',
+          text: '맛집 추천 하는건데 음식 사진 없으면 섭하지... ✨',
+          imageUrl: '/images/smile.jpg',
+          imageWidth: 200,
+          imageHeight: 200,
+          imageAlt: 'Custom image'
+        });
         return;
       }
 
@@ -191,7 +213,7 @@ const WriteFormContainer = () => {
       setPosts(updatedList);
 
       alert('게시물이 성공적으로 수정되었습니다!');
-      navigate('/');
+      navigate('/mypage');
     } catch (error) {
       console.error('게시물 수정 중 오류 발생', error.message);
       alert('게시물 수정 중 오류 발생...');
@@ -258,7 +280,7 @@ const WriteFormContainer = () => {
         <SyRightSection>
           <SyInput>
             <label htmlFor="comment">후기</label>
-            <textarea id="comment" rows="25" value={formData.comment} onChange={handleChange}></textarea>
+            <textarea id="comment" rows="17" value={formData.comment} onChange={handleChange}></textarea>
           </SyInput>
           <SyButtonContainer>
             <button type="submit">{paramId ? '게시글 수정' : '게시글 등록'}</button>
@@ -273,9 +295,9 @@ export default WriteFormContainer;
 
 const SyFormContainer = styled.div`
   background-color: #fffef0;
-  border: 2px solid #000000;
+  /* border: 1px solid #000000; */
   width: 1030px;
-  height: 670px;
+  height: 587px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -283,7 +305,7 @@ const SyFormContainer = styled.div`
   h2 {
     text-align: center;
     color: #000000;
-    margin: 30px 0 60px 0;
+    margin: 30px 0 40px 0;
     font-weight: bold;
     font-size: 25px;
   }
@@ -292,13 +314,14 @@ const SyFormContainer = styled.div`
 const SyForm = styled.form`
   display: flex;
   gap: 50px;
+  width: 990px; // 1030px - (좌우 패딩 20px * 2) = 990px
 `;
 
 const SyLeftSection = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
 `;
 
 const SyRightSection = styled.div`
@@ -319,12 +342,12 @@ const SyInput = styled.div`
   select,
   textarea {
     padding: 8px;
-    border: 2px solid #000000;
-    border-radius: 6px;
-    background-color: #fffef0;
+    border: 2px solid rgb(204 204 204);
+    border-radius: 8px;
+    background-color: white;
     &:focus {
       outline: none;
-      border-color: #ffd700;
+      border-color: #ffe31d;
       box-shadow: 0 0 0 2px rgba(225, 215, 0, 0.2);
     }
   }
@@ -332,14 +355,14 @@ const SyInput = styled.div`
 
 const SyButtonContainer = styled.div`
   text-align: end;
-  margin-top: 65px;
+  margin-top: 110px;
 
   button {
     padding: 10px 20px;
-    background-color: #ffd700;
+    background-color: #ffe31d;
     color: #000000;
-    border: 3px solid #000000;
-    border-radius: 10px;
+    border: 2px solid #000000;
+    border-radius: 40px;
     cursor: pointer;
     transition: transform 0.3s ease;
     font-size: 16px;
@@ -353,6 +376,7 @@ const SyButtonContainer = styled.div`
   }
 `;
 
+// 수정시 보이는 부분
 const SyImageMessage = styled.div`
   margin-top: 10px;
   padding: 10px;
