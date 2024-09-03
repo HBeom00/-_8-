@@ -33,7 +33,6 @@ const Aside = () => {
       <SyUserText>{userInfo.comment}</SyUserText>
       <SyBtn onClick={() => logOut()}>LogOut</SyBtn>
       <SyBtn onClick={() => navigate('/mypage')}>My Page</SyBtn>
-      <SyBtn onClick={() => navigate('/')}>Home</SyBtn>
     </SySide>
   );
 };

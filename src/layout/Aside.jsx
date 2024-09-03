@@ -8,7 +8,6 @@ const Aside = () => {
     <SySide>
       <SyBtn onClick={() => navigate('/login')}>Login</SyBtn>
       <SyBtn onClick={() => navigate('/signUp')}>signUp</SyBtn>
-      <SyBtn onClick={() => navigate('/')}>Home</SyBtn>
       <SyBtn onClick={() => navigate('/mypage')}>내 게시글</SyBtn>
     </SySide>
   );

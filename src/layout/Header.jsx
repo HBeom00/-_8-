@@ -1,15 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Header = () => {
-  const navigate = useNavigate();
-
   return (
     <SyHeader>
       <SyBtnHeader
         type="button"
         onClick={() => {
-          navigate('/');
+          location.reload();
         }}
       >
         Home
