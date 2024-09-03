@@ -154,10 +154,10 @@ const SyContainer = styled.div`
 
 const SyImageDiv = styled.div`
   position: absolute;
-  top: 25%;
+  top: 20%;
   left: 10%;
   width: 240px;
-  height: 150px;
+  height: 240px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -166,6 +166,7 @@ const SyImageDiv = styled.div`
 
 const SyImage = styled.img`
   width: 100%;
+  height: 100%;
   border-radius: 50%;
 `;
 
@@ -197,12 +198,14 @@ const SyInfoContent = styled.p`
 
 const SyButton = styled.button`
   position: absolute;
-  left: 18%;
+  left: 17%;
   bottom: 33%;
-  width: 90px;
+  width: 100px;
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  background-color: #ffd700;
+  color: black;
+  font-size: 16px;
+  font-weight: 900;
   border: none;
   border-radius: 5px;
   cursor: pointer;
