@@ -70,7 +70,6 @@ const SignUp = () => {
 
   return (
     <ContentBox2>
-      <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
       <ContainerBinding>
         <LeftContainer>
           <LoginContainer>
@@ -113,7 +112,7 @@ const SignUp = () => {
             </InputBoxs>
             <ButtonBoxs>
               <LoginSignUpButton type="button" onClick={handleAddInfo}>
-                Sign up
+                SIGN UP
               </LoginSignUpButton>
             </ButtonBoxs>
           </LoginContainer>
@@ -124,9 +123,10 @@ const SignUp = () => {
           </RightTitleBoxs>
           <RightSubAndButtonBox>
             <LoginSubTitle>Have you registerd? Click below</LoginSubTitle>
-            <LoginButton onClick={() => navigate('/login')}>Log In</LoginButton>
+            <LoginButton onClick={() => navigate('/login')}>LOG IN</LoginButton>
           </RightSubAndButtonBox>
         </RightContainer>
+        <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
       </ContainerBinding>
     </ContentBox2>
   );
@@ -144,10 +144,14 @@ const GotoBackbutton = styled.button`
   font-size: 15px;
   cursor: pointer;
   border: 2px solid black;
+  top: 20px;
+  right: 18px;
+  font-family: 'Okticon', sans-serif;
 `;
 
 const ContainerBinding = styled.div`
   display: flex;
+  position: relative;
 `;
 const RightContainer = styled.div`
   width: 430px;
@@ -193,14 +197,14 @@ const LeftTitleBoxs = styled.h1`
 
 const LoginTitle = styled.h1`
   font-size: 50px;
-  font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Okticon', sans-serif;
   font-weight: 700;
 `;
 
 const LoginSubTitle = styled.h1`
   font-size: 18px;
   color: gray;
-  font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Okticon', sans-serif;
   font-weight: 400;
   line-height: 30px;
   text-align: center;
@@ -261,6 +265,8 @@ const LoginSignUpButton = styled.button`
   background-color: #ffe31d;
   border: none;
   cursor: pointer;
+  font-family: 'Okticon', sans-serif;
+  font-weight: bold;
 `;
 
 const LoginButton = styled.button`
@@ -271,6 +277,8 @@ const LoginButton = styled.button`
   background-color: transparent;
   cursor: pointer;
   border: 2px solid black;
+  font-family: 'Okticon', sans-serif;
+  font-weight: bold;
 `;
 
 const RightSubAndButtonBox = styled.div`
