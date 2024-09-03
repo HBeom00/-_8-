@@ -45,7 +45,7 @@ const SyWrapper = styled.div`
   height: 720px;
   border: 1px solid black;
   border-radius: 8px;
-  background-color: #dfdfdf;
+  background-color: khaki;
 `;
 
 const SyTitle = styled.p`
@@ -61,14 +61,14 @@ const SyContainer = styled.div`
 `;
 
 const SyButtonDiv = styled.div`
-  width: 25%;
+  width: 20%;
   position: relative;
   border-right: 2px solid black;
   height: 90%;
 `;
 
 const SyPost = styled.div`
-  width: 75%;
+  width: 80%;
 `;
 
 const SyButton = styled.div`
@@ -77,15 +77,15 @@ const SyButton = styled.div`
   font-weight: 900;
   cursor: pointer;
   &.info {
-    width: 30%;
-    text-align: center;
+    width: 50%;
+    text-align: right;
     position: absolute;
     top: 20%;
     right: 10%;
   }
   &.post {
-    width: 35%;
-    text-align: center;
+    width: 50%;
+    text-align: right;
     position: absolute;
     top: 35%;
     right: 10%;

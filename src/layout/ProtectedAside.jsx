@@ -1,32 +1,36 @@
 import { useNavigate } from 'react-router-dom';
 import { useLoginContext } from '../context/LoginContext';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import supabase from '../supabaseClient';
+import { PostContext } from '../context/MypageContext';
 
 const Aside = () => {
   const navigate = useNavigate();
   const { logOut } = useLoginContext();
+  const { profileUrl, setProfileUrl } = useContext(PostContext);
 
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
+    // 유저 정보 가져오기
+    async function getInfo() {
+      const {
+        data: { user }
+      } = await supabase.auth.getUser();
+
+      setUserInfo(user.user_metadata);
+      setProfileUrl(
+        `https://dsbqloxhsrfdkumyhtlg.supabase.co/storage/v1/object/public/profile_img/${user.user_metadata.avatar_url}`
+      );
+    }
     getInfo();
-  }, []);
+  }, [setProfileUrl]);
 
-  async function getInfo() {
-    const {
-      data: { user }
-    } = await supabase.auth.getUser();
-
-    setUserInfo(user.user_metadata);
-  }
-
-  console.log(userInfo);
   return (
     <SySide>
       <SyUserImgBox>
-        <SyUserImg src={userInfo.avatar_url} alt="유저 프로필" />
+        <SyUserImg src={profileUrl} alt="유저 프로필" />
       </SyUserImgBox>
       <SyUserName>닉네임: {userInfo.nickname}</SyUserName>
       <SyBtn onClick={() => logOut()}>LogOut</SyBtn>
@@ -62,6 +66,7 @@ const SyUserName = styled.strong`
 const SyUserImg = styled.img`
   position: absolute;
   width: 100%;
+  height: 100%;
   top: 0;
   bottom: 0;
 `;
