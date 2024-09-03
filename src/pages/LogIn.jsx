@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoginContext } from '../context/LoginContext';
 
 import ContentBox2 from '../layout/ContentBox2';
+import Swal from 'sweetalert2';
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -36,7 +37,8 @@ const LogIn = () => {
       });
 
       if (error) {
-        alert('이메일과 패스워드를 다시 확인해주세요!');
+        Swal.fire('이메일/패스워드를 다시 확인해주세요!');
+
         throw error;
       }
 
@@ -77,7 +79,7 @@ const LogIn = () => {
                 placeholder="Email"
               />
               <LoginInputForPassWord
-                type="text"
+                type="password"
                 value={info.password}
                 onChange={(event) => {
                   handleChangeInput(event, 'password');
