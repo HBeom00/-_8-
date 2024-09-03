@@ -3,6 +3,7 @@ import supabase from '../supabaseClient';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ContentBox2 from '../layout/ContentBox2';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -39,15 +40,29 @@ const SignUp = () => {
       });
 
       if (error) {
-        alert('입력 정보를 다시 확인해주세요!');
+        Swal.fire('입력 정보를 다시 확인해주세요!');
         throw error;
       }
 
       console.log('User signed up:', data);
       const { error: logoutError } = await supabase.auth.signOut(); // 회원가입 후 자동 로그인 해제를 위한 로그아웃
-      let like = confirm('로그인 화면으로 이동하시겠습니까?');
-      if (like) navigate('/login');
-      else navigate('/');
+      // let like = confirm('로그인 화면으로 이동하시겠습니까?');
+      Swal.fire({
+        title: '로그인 화면으로 이동하시겠습니까?',
+        text: '확인을 누르면 로그인 화면으로 이동합니다.',
+
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login');
+        } else {
+          navigate('/');
+        }
+      });
     } catch (error) {
       console.error('Error signing up:', error);
     }
@@ -72,7 +87,7 @@ const SignUp = () => {
                 placeholder="Email"
               />
               <LoginInputForPassWord
-                type="text"
+                type="password"
                 value={info.password}
                 onChange={(event) => {
                   handleChangeInput(event, 'password');
