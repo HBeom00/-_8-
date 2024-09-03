@@ -161,7 +161,14 @@ const WriteFormContainer = () => {
 
       if (error) throw error;
 
-      alert('게시물이 성공적으로 작성되었습니다!');
+      Swal.fire({
+        title: '업로드 성공',
+        text: '게시물이 성공적으로 작성되었습니다!',
+        imageUrl: '/images/create.jpg',
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: 'Custom image'
+      });
       navigate('/');
     } catch (error) {
       console.error('게시물 작성 중 오류 발생', error.message);
@@ -212,8 +219,16 @@ const WriteFormContainer = () => {
 
       setPosts(updatedList);
 
-      alert('게시물이 성공적으로 수정되었습니다!');
-      navigate('/mypage');
+      Swal.fire({
+        title: '수정 성공',
+        text: '게시물이 성공적으로 수정되었습니다!',
+        imageUrl: '/images/create.jpg',
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: 'Custom image'
+      });
+
+      navigate('/mypage', { replace: true });
     } catch (error) {
       console.error('게시물 수정 중 오류 발생', error.message);
       alert('게시물 수정 중 오류 발생...');
@@ -307,6 +322,7 @@ const SyFormContainer = styled.div`
     margin: 30px 0 40px 0;
     font-weight: bold;
     font-size: 25px;
+    font-weight: bold;
   }
 `;
 
@@ -333,7 +349,7 @@ const SyInput = styled.div`
 
   label {
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: normal;
     color: #000000;
   }
 

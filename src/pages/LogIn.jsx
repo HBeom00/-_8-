@@ -37,7 +37,7 @@ const LogIn = () => {
       });
 
       if (error) {
-        Swal.fire('이메일/패스워드를 다시 확인해주세요!');
+        Swal.fire({ title: '이메일/패스워드를 다시 확인해주세요!', width: '600px' });
 
         throw error;
       }
@@ -52,7 +52,6 @@ const LogIn = () => {
 
   return (
     <ContentBox2>
-      <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
       <ContainerBinding>
         <LeftContainer>
           {/* <LeftTitleBoxs> */}
@@ -94,6 +93,7 @@ const LogIn = () => {
             </ButtonBoxs>
           </LoginContainer>
         </RightContainer>
+        <GotoBackbutton onClick={() => history.go(-1)}>back</GotoBackbutton>
       </ContainerBinding>
     </ContentBox2>
   );
@@ -111,10 +111,14 @@ const GotoBackbutton = styled.button`
   font-size: 15px;
   cursor: pointer;
   border: 2px solid black;
+  top: 20px;
+  right: 18px;
+  font-family: 'Okticon', sans-serif;
 `;
 
 const ContainerBinding = styled.div`
   display: flex;
+  position: relative;
 `;
 
 const LeftContainer = styled.div`
@@ -161,15 +165,14 @@ const RightTitleBoxs = styled.h1`
 
 const LoginTitle = styled.h1`
   font-size: 50px;
-  font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Okticon', sans-serif;
   font-weight: 700;
 `;
 
 const LoginSubTitle = styled.h1`
   font-size: 18px;
   color: gray;
-  font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-  font-weight: 400;
+  font-family: 'Okticon', sans-serif;
   line-height: 30px;
   text-align: center;
 `;
@@ -213,6 +216,8 @@ const LoginSignUpButton = styled.button`
   background-color: transparent;
   cursor: pointer;
   border: 2px solid black;
+  font-family: 'Okticon', sans-serif;
+  font-weight: bold;
 `;
 const LoginButtonn = styled.button`
   width: 200px;
@@ -222,6 +227,8 @@ const LoginButtonn = styled.button`
   background-color: #ffe31d;
   border: none;
   cursor: pointer;
+  font-family: 'Okticon', sans-serif;
+  font-weight: bold;
 `;
 
 const LeftSubAndButtonBox = styled.div`

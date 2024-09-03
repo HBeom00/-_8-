@@ -15,6 +15,9 @@ const Mypage = () => {
         <SyTitle>My Page</SyTitle>
         <SyContainer>
           <SyButtonDiv>
+            <SyButton className="home" onClick={() => navigate('/')}>
+              Home
+            </SyButton>
             <SyButton className="info" onClick={() => setIsSelect('myinfo')}>
               내 정보
             </SyButton>
@@ -81,18 +84,25 @@ const SyButton = styled.div`
   padding: 12px;
   font-weight: 900;
   cursor: pointer;
-  &.info {
+  &.home {
     width: 50%;
     text-align: right;
     position: absolute;
     top: 20%;
     right: 10%;
   }
-  &.post {
+  &.info {
     width: 50%;
     text-align: right;
     position: absolute;
     top: 35%;
+    right: 10%;
+  }
+  &.post {
+    width: 50%;
+    text-align: right;
+    position: absolute;
+    top: 50%;
     right: 10%;
   }
   &.back-button {
