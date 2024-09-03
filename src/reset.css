@@ -125,8 +125,9 @@ table {
 a {
   color: #000;
   text-decoration: none;
-  outline: none
+  outline: none;
 }
-button{
+button {
   cursor: pointer;
+  font-family: 'Okticon', sans-serif;
 }

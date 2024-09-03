@@ -24,7 +24,6 @@ const GlobalStyles = createGlobalStyle`
 
   html {
     height: 100%;
-    font-family: 'Okticon', sans-serif;
   }
 
   #root, body {
