@@ -44,29 +44,29 @@
 
 <div style="text-align: left;">
   <div style="margin: ; text-align: left;" "text-align: left;">
-    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
-    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
-    <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white">
     <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
-    <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white">
-    <br/><img src="https://img.shields.io/badge/Eslint-4B32C3?style=for-the-badge&logo=Eslint&logoColor=white">
-    <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
-    <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white">
     <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=for-the-badge&logo=StyledComponents&logoColor=white">
+    <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white">
+    <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white">
+    <img src="https://img.shields.io/badge/Eslint-4B32C3?style=for-the-badge&logo=Eslint&logoColor=white">
+  <br/></div>
+</div>
+
+
+## 개발 환경 
+
+<div style="text-align: left;">
+  <div style="margin: ; text-align: left;" "text-align: left;">
+    <img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white">
+    <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white">
     <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
   <br/></div>
 </div>
 
-## 개발 환경
-
-- VScode
-- GitHub
-- Figma
-
 ## 프로젝트 구조
 
 ```
-  맛집뉴스피드프로젝트/
+맛집뉴스피드프로젝트/
 │
 ├── public/
 │   └── images/
@@ -133,7 +133,7 @@
 
 ## 와이어프레임
 
-![와이어프레임](/public/images/newsPeed.png)
+![와이어프레임](연매출_8조\src\assets\화면 캡처 2024-09-03 160822.png)
 
 ## 실제 배포 사이트 이미지
 
