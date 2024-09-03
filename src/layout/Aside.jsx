@@ -1,19 +1,39 @@
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Aside = () => {
   const navigate = useNavigate();
+
   return (
-    <aside>
-      <button onClick={() => navigate('/login')}>Login</button>
-      <button onClick={() => navigate('/signUp')}>Join</button>
-      <button onClick={() => navigate('/')}>Home</button>
-      <button onClick={() => navigate('/mypage')}>내 게시글</button>
-      <input type="search" placeholder="검색어를 입력해 주세요" />
-      {/* <form action="url" method="get">
-        <button type="submit">검색</button>
-      </form> */}
-    </aside>
+    <SySide>
+      <SyBtn onClick={() => navigate('/login')}>Login</SyBtn>
+      <SyBtn onClick={() => navigate('/signUp')}>Join</SyBtn>
+      <SyBtn onClick={() => navigate('/')}>Home</SyBtn>
+      <SyBtn onClick={() => navigate('/mypage')}>내 게시글</SyBtn>
+    </SySide>
   );
 };
 
+const SySide = styled.aside`
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ccc;
+  margin: 20px 0;
+`;
+
+const SyBtn = styled.button`
+  background: #fff;
+  padding: 10px 0;
+  box-sizing: border-box;
+  width: 150px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #666;
+  &:hover {
+    background: #ffe31d;
+  }
+`;
 export default Aside;

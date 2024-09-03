@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SyContentBox = styled.div`
+export const SyContentBox = styled.div`
   max-width: 1280px;
   height: 720px;
   display: flex;
