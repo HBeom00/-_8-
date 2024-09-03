@@ -85,20 +85,12 @@ const SyWrapper = styled.div`
   overflow-y: auto;
   /* Custom Scrollbar Styling */
   &::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(220, 20, 60); /* 스크롤바 색상 */
+    background: #ccc; /* 스크롤바 색상 */
     border-radius: 10px; /* 스크롤바 둥근 테두리 */
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(220, 20, 60, 0.1); /*스크롤바 뒷 배경 색상*/
   }
 `;
 const SyPostCard = styled.div`

@@ -39,6 +39,7 @@ const SyDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f5f4f1;
 `;
 
 const SyWrapper = styled.div`
@@ -46,7 +47,7 @@ const SyWrapper = styled.div`
   height: 720px;
   border: 1px solid black;
   border-radius: 8px;
-  background-color: khaki;
+  background-color: white;
 `;
 
 const SyTitle = styled.p`
