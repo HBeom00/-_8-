@@ -39,16 +39,16 @@ const MyPost = () => {
         .map((el) => {
           return (
             <SyPostCard key={el.id}>
-              <div>
+              <SyProfileDiv>
                 <SyProfileImg src={el.img_path} alt="food_img" />
-              </div>
+              </SyProfileDiv>
+              <SyContentDiv>
+                <div>상호명: {el.store_name}</div>
+                <div>주소: {el.address}</div>
+              </SyContentDiv>
               <div>
-                <div>{el.store_name}</div>
-                <div>{el.comment}</div>
-              </div>
-              <div>
-                <button onClick={() => navigate(`/writing?id=${el.id}`)}>수정</button>
-                <button onClick={() => ondeletePost(el.id)}>삭제</button>
+                <SyButton onClick={() => navigate(`/writing?id=${el.id}`)}>수정</SyButton>
+                <SyButton onClick={() => ondeletePost(el.id)}>삭제</SyButton>
               </div>
             </SyPostCard>
           );
@@ -66,6 +66,23 @@ const SyWrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow-y: auto;
+  /* Custom Scrollbar Styling */
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(220, 20, 60); /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(220, 20, 60, 0.1); /*스크롤바 뒷 배경 색상*/
+  }
 `;
 const SyPostCard = styled.div`
   border-radius: 12px;
@@ -74,7 +91,21 @@ const SyPostCard = styled.div`
   height: 46%;
 `;
 
-const SyProfileImg = styled.img`
+const SyProfileDiv = styled.div`
   width: 100%;
-  border-radius: 12px 12px 0 0;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+
+const SyProfileImg = styled.img`
+  width: 50%;
+`;
+
+const SyContentDiv = styled.div`
+  line-height: 20px;
+  font-size: 20px;
+`;
+
+const SyButton = styled.button``;
