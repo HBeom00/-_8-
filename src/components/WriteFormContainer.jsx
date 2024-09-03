@@ -295,9 +295,8 @@ export default WriteFormContainer;
 
 const SyFormContainer = styled.div`
   background-color: #fffef0;
-  /* border: 1px solid #000000; */
-  width: 1030px;
-  height: 587px;
+  width: 100%;
+  height: 100%;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
