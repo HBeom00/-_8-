@@ -60,9 +60,11 @@ const MainList = () => {
             </button>
           </SyNoDataBox>
         ) : (
-          posts.map((list) => {
-            return <MainItem key={list.id} data={list} />;
-          })
+          posts
+            .sort((a, b) => b.id - a.id)
+            .map((list) => {
+              return <MainItem key={list.id} data={list} />;
+            })
         )}
       </SyListBox>
     </SyscrollBox>
