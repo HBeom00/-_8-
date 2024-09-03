@@ -115,7 +115,7 @@
 
 ## 와이어프레임
 
-- ![와이어프레임](./images/newSpeed.png)
+- ![와이어프레임](/public/images/newSpeed.png)
 
 ## 실제 배포 사이트 이미지
 
