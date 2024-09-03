@@ -133,7 +133,7 @@
 
 ## 와이어프레임
 
-![와이어프레임](연매출_8조\src\assets\화면 캡처 2024-09-03 160822.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/newSpeed.png)
 
 ## 실제 배포 사이트 이미지
 
