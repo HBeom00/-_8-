@@ -7,6 +7,7 @@ const SyContentBox2 = styled.div`
   justify-content: center;
   background-color: #f5f4f1;
   align-items: center;
+  position: relative;
 `;
 
 const ContentBox2 = (props) => {
