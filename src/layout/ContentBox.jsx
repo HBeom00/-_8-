@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
-const SyContentBox = styled.div`
+export const SyContentBox = styled.div`
   max-width: 1280px;
-  margin: 0 auto;
+  height: 720px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 `;
 
 const ContentBox = (props) => {
