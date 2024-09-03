@@ -199,10 +199,10 @@ const SyInfoContent = styled.p`
 const SyButton = styled.button`
   position: absolute;
   left: 17%;
-  bottom: 33%;
+  bottom: 30%;
   width: 100px;
   padding: 10px 20px;
-  background-color: #ffd700;
+  background-color: #ffe31d;
   color: black;
   font-size: 16px;
   font-weight: 900;

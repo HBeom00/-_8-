@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { PostContext } from '../context/MypageContext';
+import Swal from 'sweetalert2';
 
 const MyPost = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const MyPost = () => {
     const filterPost = posts.filter((post) => post.id !== deletedPost.id);
 
     setPosts(filterPost);
+    Swal.fire('삭제되었습니다.');
   }
 
   return (
@@ -97,45 +99,50 @@ const SyPostCard = styled.div`
   border-radius: 12px;
   border: 1px solid black;
   width: 46%;
-  height: 46%;
-  display: flex;
+  height: 64%;
   cursor: pointer;
 `;
 
-const SyProfileDiv = styled.div``;
+const SyProfileDiv = styled.div`
+  height: 60%;
+  overflow: hidden;
+`;
 
 const SyProfileImg = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 12px 0 0 12px;
+  border-radius: 12px 12px 0 0;
+  object-fit: cover;
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.4s ease-in-out;
+  }
 `;
 
 const SyContentDivv = styled.div`
-  background-color: #fffbc8;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  border-radius: 0 12px 12px 0;
+  height: 30%;
+  padding: 20px;
 `;
 
 const SyContentDiv = styled.div`
   font-size: 20px;
-  margin-bottom: 20px;
-  & > div {
-    margin-bottom: 12px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const SyBtnDiv = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: right;
+  gap: 10px;
 `;
 
 const SyButton = styled.button`
   width: 60px;
   padding: 5px 0;
-  background-color: #ffd700;
+  background-color: #ffe31d;
   color: black;
   font-size: 16px;
   font-weight: 900;
