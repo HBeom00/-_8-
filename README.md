@@ -17,11 +17,20 @@
 
 ## 역할 분담
 
-- **최지민**: 와이어프레임, 작성폼 페이지
-- **김진형**: Supabase 담당
-- **이보영**: 회원가입, 로그인 기능 구현
-- **임기철**: 메인, 상세페이지
-- **신희범**: 초기 셋업, 마이페이지
+- **최지민**
+  - 와이어 프레임
+  - 작성 폼 페이지 제작
+- **김진형**
+  - Supabase 초기 셋업(Table 제작 및 Table 관계 연결)
+  - 권한별 페이지 라우팅 구현
+- **이보영**
+  - 회원가입, 로그인 페이지 구현
+- **임기철**
+  - 메인페이지, 상세 페이지 구현
+- **신희범**
+  - 프로젝트 초기 셋업(GitHub, 각종 주요 패키지 설치, prettierrc, 기본 라우팅)
+  - 마이페이지 구현
+  - 프로필 이미지 수정 기능 구현
 
 ## 주요 기능 💜
 
@@ -33,11 +42,20 @@
 
 ## 기술 스택 📚️
 
-- React
-- React-Router-Dom
-- Styled-components
-- SweetAlert2
-- Supabase
+<div style="text-align: left;">
+  <div style="margin: ; text-align: left;" "text-align: left;">
+    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
+    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
+    <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white">
+    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
+    <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white">
+    <br/><img src="https://img.shields.io/badge/Eslint-4B32C3?style=for-the-badge&logo=Eslint&logoColor=white">
+    <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
+    <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white">
+    <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=for-the-badge&logo=StyledComponents&logoColor=white">
+    <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
+  <br/></div>
+</div>
 
 ## 개발 환경
 
