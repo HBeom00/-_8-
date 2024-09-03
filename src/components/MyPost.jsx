@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import supabase from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { PostContext } from '../context/MypageContext';
+import Swal from 'sweetalert2';
 
 const MyPost = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const MyPost = () => {
     const filterPost = posts.filter((post) => post.id !== deletedPost.id);
 
     setPosts(filterPost);
+    Swal.fire('삭제되었습니다.');
   }
 
   return (
