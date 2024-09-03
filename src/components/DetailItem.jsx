@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import supabase from '../supabaseClient';
 import styled from 'styled-components';
+import { PostContext } from '../context/MypageContext';
 
 const DetailItem = () => {
   const [posts, setPosts] = useState();
+  const { po, setPo } = useContext(PostContext);
 
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
@@ -15,26 +17,30 @@ const DetailItem = () => {
 
   async function getPosts() {
     const { data } = await supabase.from('store').select(`*`).eq('id', id);
+    const user = data[0].writer;
+    const { dataed } = await supabase.from('profiles').select('*').eq('id', user).single();
     setPosts(data[0]);
   }
   return (
     <SyDetailBox>
-      <SyImgBox className="img_box">
-        <img src={posts?.img_path} alt="음식 이미지" />
-      </SyImgBox>
-      <SyInfoList>
-        <li>가게 상호명: {posts?.store_name}</li>
-        <li>주소: {posts?.address}</li>
-        <li>지역: {posts?.location}</li>
-        <li>별점: {posts?.star}점</li>
-        <li>후기: {posts?.comment}</li>
-      </SyInfoList>
+      <div>
+        <SyImgBox className="img_box">
+          <img src={posts?.img_path} alt="음식 이미지" />
+        </SyImgBox>
+        <SyInfoList>
+          <li>가게 상호명: {posts?.store_name}</li>
+          <li>주소: {posts?.address}</li>
+          <li>지역: {posts?.location}</li>
+          <li>별점: {'⭐'.repeat(posts?.star)}</li>
+          <li>후기: {posts?.comment}</li>
+        </SyInfoList>
+      </div>
     </SyDetailBox>
   );
 };
 
 const SyDetailBox = styled.div`
-  padding-right: 20px;
+  padding: 0 20px;
   width: 1000px;
   box-sizing: border-box;
 `;
@@ -43,8 +49,6 @@ const SyImgBox = styled.div`
   position: relative;
   width: 100%;
   height: 420px;
-  border-radius: 10px;
-  overflow: hidden;
   img {
     position: absolute;
     top: 0;
@@ -56,7 +60,8 @@ const SyImgBox = styled.div`
 `;
 
 const SyInfoList = styled.ul`
-  padding: 20px;
+  padding: 20px 20px 0;
+  border: 1px solid #ccc;
   li {
     margin-bottom: 20px;
     font-size: 18px;

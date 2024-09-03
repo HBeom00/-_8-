@@ -7,7 +7,7 @@ const MainItem = ({ data }) => {
       <Link to={`/detail?id=${data.id}`}>
         <SyImgBox>
           <SyImg src={data.img_path} alt="가상 이미지"></SyImg>
-          <span>{data.star}/5</span>
+          <span>{'⭐'.repeat(data.star)}</span>
         </SyImgBox>
         <SyTextBox>
           <strong>상표: {data.store_name}</strong>

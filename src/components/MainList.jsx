@@ -23,7 +23,7 @@ const MainList = () => {
 
   const handleSearch = () => {
     const searchData = sortData.filter((list) => {
-      return list.store_name && list.address.includes(search);
+      return list.store_name.includes(search);
     });
     if (search == '') {
       alert('검색어를 입력 해주세요!');
@@ -38,7 +38,6 @@ const MainList = () => {
     });
     setPosts(newPost);
   };
-  console.log(sortData);
   return (
     <SyscrollBox>
       <MainListSort
@@ -73,13 +72,14 @@ const MainList = () => {
 const SyListBox = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  margin: 20px 0 50px;
+  margin: 20px 0 0;
+  padding-left: 20px;
 `;
 
 const SyscrollBox = styled.div`
   width: 1000px;
   padding-right: 5px;
-  height: 100%;
+  height: calc(100% - 90px);
   overflow-x: hidden;
   &::-webkit-scrollbar {
     width: 4px;

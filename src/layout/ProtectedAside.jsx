@@ -24,7 +24,6 @@ const Aside = () => {
     );
     setUserInfo(user.user_metadata);
   }
-  console.log(profileUrl);
   return (
     <SySide>
       <SyUserImgBox>
@@ -76,8 +75,10 @@ const SyUserText = styled.p`
 const SyUserImg = styled.img`
   position: absolute;
   width: 100%;
+  height: 100%;
   top: 0;
   bottom: 0;
+  object-fit: cover;
 `;
 
 const SyBtn = styled.button`
