@@ -1,6 +1,6 @@
 # 프로젝트 이름
 
-- 맛있는 발견(미정)
+- 맛있는 발견
 
 # 프로젝트 소개 👨‍🏫
 
@@ -140,18 +140,18 @@
 
 ## 실제 배포 사이트 이미지
 - 메인 페이지<br>
-![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/notloginhome.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/26bf7938acfa1d9cfa8c5f0893ca07465ca9310f/public/images/notloginhome.png)
 - 회원가입 페이지<br>
-![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/signup.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/26bf7938acfa1d9cfa8c5f0893ca07465ca9310f/public/images/signup.png)
 - 로그인 페이지<br>
-![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/login.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/26bf7938acfa1d9cfa8c5f0893ca07465ca9310f/public/images/login.png)
 - 로그인 된 유저가 보는 메인 페이지<br>
-![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/loginhome.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/26bf7938acfa1d9cfa8c5f0893ca07465ca9310f/public/images/loginhome.png)
 - 상세 페이지<br>
-![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/detail.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/26bf7938acfa1d9cfa8c5f0893ca07465ca9310f/public/images/detail.png)
 - 작성 페이지<br>
-![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/write.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/26bf7938acfa1d9cfa8c5f0893ca07465ca9310f/public/images/write.png)
 - 마이페이지(내 정보)<br>
-![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/mypage_myinfo.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/26bf7938acfa1d9cfa8c5f0893ca07465ca9310f/public/images/mypage_myinfo.png)
 - 마이페이지(내 게시글)<br>
-![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/mypage_mywrite.png)
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/26bf7938acfa1d9cfa8c5f0893ca07465ca9310f/public/images/mypage_mywrite.png)
