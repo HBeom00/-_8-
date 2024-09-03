@@ -2,8 +2,6 @@
     <img src="https://capsule-render.vercel.app/api?type=rounded&color=0:ffef00,100:fff9b3&height=120&text=맛집%20뉴스피드%20프로젝트&animation=fadeIn&fontColor=000000&fontSize=50" />
     </div>
     <div style="text-align: left;"> 
-    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 프로젝트 이름 </h2>  
-    <div style="font-weight: 700; font-size: 15px; text-align: left; color: #282d33;"> 맛있는 발견 </div> 
     </div>
     <div style="text-align: left;">
     <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🛠️ Tech Stacks </h2> <br> 
@@ -22,7 +20,6 @@
           </div>  <br> 
     <div align= "center">  </div> 
     </div>
-
 
 # 프로젝트 이름
 
