@@ -314,6 +314,7 @@ const SyFormContainer = styled.div`
 const SyForm = styled.form`
   display: flex;
   gap: 50px;
+  width: 990px; // 1030px - (좌우 패딩 20px * 2) = 990px
 `;
 
 const SyLeftSection = styled.div`
