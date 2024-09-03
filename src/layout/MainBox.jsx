@@ -24,11 +24,8 @@ const SyContent = styled.div`
   display: flex;
 `;
 const SyMainContent = styled.div`
-  padding-left: 25px;
-  margin-bottom: 20px;
   box-sizing: border-box;
   width: calc(100% - 250px);
-  overflow: hidden;
 `;
 
 export default MainBox;
