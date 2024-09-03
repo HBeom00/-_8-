@@ -7,7 +7,7 @@
 이 프로젝트는 맛집 경험을 공유하고, 다른 사람들이 맛집 피드를 실시간으로 확인할 수 있는 뉴스피드입니다. React 기반으로 구축되었으며, 맛집 탐험가들을 위한 소셜 플랫폼을 제공합니다.
 
 ## 배포 주소
--
+<https://deliciousdiscovery-heebeoms-projects-028cd87b.vercel.app/>
 
 # 팀 소개
 
@@ -139,4 +139,19 @@
 ![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/newSpeed.png)
 
 ## 실제 배포 사이트 이미지
--
+- 메인 페이지<br>
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/notloginhome.png)
+- 회원가입 페이지<br>
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/signup.png)
+- 로그인 페이지<br>
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/login.png)
+- 로그인 된 유저가 보는 메인 페이지<br>
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/loginhome.png)
+- 상세 페이지<br>
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/detail.png)
+- 작성 페이지<br>
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/write.png)
+- 마이페이지(내 정보)<br>
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/mypage_myinfo.png)
+- 마이페이지(내 게시글)<br>
+![와이어프레임](https://github.com/HBeom00/newfeed_8/blob/44d5d89bea4632bf37a9a6dc519fb03f4475dd33/public/images/mypage_mywrite.png)
