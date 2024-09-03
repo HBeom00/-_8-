@@ -51,15 +51,18 @@ const SyWrapper = styled.div`
 `;
 
 const SyTitle = styled.p`
-  height: 10%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 12%;
   font-size: 36px;
   font-weight: 900;
+  margin-bottom: 16px;
 `;
 
 const SyContainer = styled.div`
   display: flex;
-  height: 90%;
+  height: calc(88% - 16px);
 `;
 
 const SyButtonDiv = styled.div`
