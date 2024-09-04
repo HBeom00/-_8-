@@ -1,12 +1,11 @@
-import { useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import MyInfo from '../components/MyInfo';
 import MyPost from '../components/MyPost';
-import { PostContext } from '../context/MypageContext';
 
 const Mypage = () => {
-  const { isSelect, setIsSelect } = useContext(PostContext);
+  const [isSelect, setIsSelect] = useState('myinfo');
   const navigate = useNavigate();
 
   return (
