@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import searchImg from '../assets/icon_search.svg';
+import { SearchIcon } from 'lucide-react';
 
 const SyBtnBox = styled.div`
   display: flex;
@@ -68,6 +68,7 @@ const MainListSort = ({ search, setSearch, handleSort, handleSearch }) => {
         />
         <SyBtnSearch onClick={handleSearch}>
           <span className="hidden">검색하기</span>
+          <SearchIcon size={20}></SearchIcon>
         </SyBtnSearch>
       </SyInpuBox>
       <SyBtnAdd onClick={() => navigate('/Writing')}>
@@ -100,8 +101,9 @@ const SyBtnSearch = styled.button`
   width: 30px;
   height: 100%;
   border: none;
-  background: url(${searchImg}) no-repeat center;
-  background-size: 20px 20px;
+  display: flex;
+  align-items: center;
+  background: none;
   .hidden {
     position: absolute;
     width: 1px;
